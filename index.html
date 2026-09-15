@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestione Ferie, Ticket, Malattie, L.104 e Congedi</title>
+    <title>Gestione Ferie, Ticket, Malattia e Legge 104</title>
     <style>
         :root, [data-theme="dark"] {
             --primary: #94a3b8;
@@ -11,7 +11,7 @@
             --success: #22c55e;
             --danger: #ef4444;
             --warning: #f59e0b;
-            --info: #8b5cf6;
+            --purple: #8b5cf6;
             --bg: #0f172a;
             --card-bg: #1e293b;
             --border: #334155;
@@ -29,7 +29,7 @@
             --success: #16a34a;
             --danger: #dc2626;
             --warning: #d97706;
-            --info: #7c3aed;
+            --purple: #7c3aed;
             --bg: #f8fafc;
             --card-bg: #ffffff;
             --border: #cbd5e1;
@@ -48,77 +48,78 @@
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            padding: 12px;
+            padding: 8px;
             transition: background-color 0.3s, color 0.3s;
+            -webkit-text-size-adjust: 100%;
         }
 
-        .container { max-width: 1400px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
-        h1 { font-size: 1.4rem; color: var(--text-heading); margin: 0; }
+        h1 { font-size: 1.1rem; color: var(--text-heading); margin: 0; }
 
         .theme-btn {
             background-color: var(--card-bg);
             color: var(--text);
             border: 1px solid var(--border);
-            padding: 8px 14px;
-            border-radius: 20px;
+            padding: 5px 10px;
+            border-radius: 16px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.85rem;
-            width: auto;
+            font-size: 0.75rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .grid-forms {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-            margin-bottom: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
         .card {
             background: var(--card-bg);
-            padding: 16px;
-            border-radius: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
             border: 1px solid var(--border);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .card h3 {
             margin-top: 0;
-            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
             color: var(--text-heading);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
         }
 
         .form-row {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            margin-bottom: 12px;
+            gap: 3px;
+            margin-bottom: 8px;
         }
 
-        label { font-size: 0.85rem; font-weight: 600; }
+        label { font-size: 0.75rem; font-weight: 600; }
 
         input, select {
-            padding: 10px;
+            padding: 6px 8px;
             border: 1px solid var(--border);
             background-color: var(--input-bg);
             color: var(--text);
-            border-radius: 6px;
-            font-size: 0.95rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
             width: 100%;
         }
 
@@ -126,112 +127,133 @@
             background-color: var(--secondary);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 6px;
+            padding: 8px;
+            border-radius: 4px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
-        .btn-confirm { background-color: var(--success); font-size: 1rem; margin-top: 10px; }
+        .btn-confirm { background-color: var(--success); font-size: 0.9rem; margin-top: 6px; }
 
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 6px;
+            margin-top: 6px;
         }
 
         .summary-item {
             background: var(--summary-bg);
-            padding: 10px;
-            border-radius: 8px;
+            padding: 6px;
+            border-radius: 6px;
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
         .summary-item span {
             display: block;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             color: var(--text-heading);
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         details {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 16px;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
         }
         summary {
             font-weight: bold;
-            font-size: 1.05rem;
+            font-size: 0.9rem;
             color: var(--text-heading);
             cursor: pointer;
             outline: none;
-            padding: 4px 0;
+            padding: 2px 0;
         }
 
         .table-responsive {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            margin-top: 10px;
+            margin-top: 6px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 950px;
-            font-size: 0.85rem;
+            min-width: 800px;
+            font-size: 0.8rem;
         }
 
-        th, td { padding: 8px 6px; border: 1px solid var(--border); text-align: center; }
-        th { background-color: #334155; color: #ffffff; }
+        th, td { padding: 5px 4px; border: 1px solid var(--border); text-align: center; }
+        th { background-color: #334155; color: #ffffff; font-size: 0.75rem; }
 
         input.table-input {
-            width: 60px;
+            width: 55px;
             text-align: center;
-            padding: 6px 2px;
+            padding: 4px 2px;
             border: 1px solid var(--border);
             background-color: var(--input-bg);
             color: var(--text);
-            border-radius: 4px;
+            border-radius: 3px;
+            font-size: 0.85rem;
         }
 
         .highlight { font-weight: bold; background-color: var(--highlight-bg); color: var(--highlight-text); }
-        .btn-del { background: var(--danger); color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; }
-        
-        .badge-malattia { background-color: var(--warning); color: black; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .badge-104 { background-color: var(--info); color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-        .badge-congedo { background-color: #ec4899; color: white; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .btn-del { background: var(--danger); color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 0.75rem; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header-container">
-        <h1>Gestione Ferie, Permessi, Ticket, Malattia, L.104 e Congedi</h1>
+        <h1>Gestione Ferie, Permessi, Ticket, Malattia e Legge 104</h1>
         <button class="theme-btn" onclick="toggleTema()">
             <span id="themeIcon">☀️</span> <span id="themeText">Tema Chiaro</span>
         </button>
     </div>
 
     <div class="grid-forms">
+        <!-- Scheda Aggiungi Mese / Accredito -->
         <div class="card">
             <h3>+ Aggiungi Mese Manuale</h3>
             <div class="form-row">
                 <label for="inputMese">Mese *:</label>
-                <input type="month" id="inputMese" required>
+                <input type="month" id="inputMese" autocomplete="off" required>
             </div>
             <div class="form-row">
                 <label for="inputTicketVuoto">Ticket (opzionale):</label>
-                <input type="number" id="inputTicketVuoto" placeholder="Inserisci quantità se presente">
+                <input type="number" id="inputTicketVuoto" placeholder="Qtà se presente">
             </div>
             <button onclick="aggiungiMeseManuale()">Accredita Mese (+14.66h / +3.33h / +2.67h)</button>
         </div>
 
+        <!-- Scheda Registrazione Ferie / ROL / Ex Fest con Data -->
+        <div class="card">
+            <h3>🏖️ Registra Ferie / ROL / Ex Fest</h3>
+            <div class="form-row">
+                <label for="inputDataFerieRol">Data Giorno *:</label>
+                <input type="date" id="inputDataFerieRol" autocomplete="off" required>
+            </div>
+            <div class="form-row">
+                <label for="selectTipoPermesso">Tipo di Assenza:</label>
+                <select id="selectTipoPermesso">
+                    <option value="ferie">Ferie Prese</option>
+                    <option value="rol">ROL Presi</option>
+                    <option value="exFest">Ex Festività Prese</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="inputOrePermesso">Ore Prese *:</label>
+                <input type="number" step="0.5" id="inputOrePermesso" value="8" placeholder="es. 8 o 4" required>
+            </div>
+            <button style="background-color: var(--secondary);" onclick="aggiungiFerieRolPresi()">Registra Assenza</button>
+        </div>
+
+        <!-- Gestione Quick Ticket -->
         <div class="card">
             <h3>🎫 Gestione Quick Ticket</h3>
             <div class="form-row">
@@ -245,52 +267,108 @@
             <button style="background-color: #0284c7;" onclick="aggiornaTicketMese()">Aggiorna Ticket Spesi</button>
         </div>
 
-        <!-- Scheda Registrazione Assenze (Malattia, L.104, Congedo) -->
+        <!-- Registrazione Malattia -->
         <div class="card">
-            <h3>🏥 Registra Giorno Assenza</h3>
-            <div class="form-row">
-                <label for="selectTipoAssenza">Tipologia *:</label>
-                <select id="selectTipoAssenza">
-                    <option value="Malattia">Malattia</option>
-                    <option value="Legge 104">Legge 104 (max 3 gg/mese)</option>
-                    <option value="Congedo Straordinario">Congedo Straordinario</option>
-                </select>
-            </div>
+            <h3>🏥 Registra Giorno Malattia</h3>
             <div class="form-row">
                 <label for="inputDataMalattia">Giorno esatto *:</label>
-                <input type="date" id="inputDataMalattia" required>
+                <input type="date" id="inputDataMalattia" autocomplete="off" required>
             </div>
             <div class="form-row">
-                <label for="inputNoteMalattia">Note / Protocollo (opzionale):</label>
-                <input type="text" id="inputNoteMalattia" placeholder="es. Certificato / Protocollo INPS">
+                <label for="inputNoteMalattia">Note / Certificato (opzionale):</label>
+                <input type="text" id="inputNoteMalattia" placeholder="es. Certificato N. 1234">
             </div>
-            <button style="background-color: var(--warning);" onclick="aggiungiAssenza()">Inserisci Assenza</button>
+            <button style="background-color: var(--warning);" onclick="aggiungiMalattia()">Inserisci Malattia</button>
+        </div>
+
+        <!-- Prompt Unificato Legge 104 (Permessi e Congedi) -->
+        <div class="card">
+            <h3>♿ Gestione Unificata Legge 104</h3>
+            <div class="form-row">
+                <label for="selectTipo104">Tipo Intervento 104:</label>
+                <select id="selectTipo104" onchange="gestisciCambioTipo104()">
+                    <option value="permesso">Permesso 3 Giorni Mensili</option>
+                    <option value="congedo">Congedo Straordinario</option>
+                </select>
+            </div>
+
+            <!-- Campo per Permesso Singolo -->
+            <div class="form-row" id="rowPermessoSingolo">
+                <label for="inputData104">Giorno Permesso *:</label>
+                <input type="date" id="inputData104" autocomplete="off">
+            </div>
+
+            <!-- Campi per Intervallo Congedo -->
+            <div class="form-row" id="rowCongedoInizio" style="display: none;">
+                <label for="inputDataInizioCongedo">Data Inizio *:</label>
+                <input type="date" id="inputDataInizioCongedo" autocomplete="off">
+            </div>
+            <div class="form-row" id="rowCongedoFine" style="display: none;">
+                <label for="inputDataFineCongedo">Data Fine *:</label>
+                <input type="date" id="inputDataFineCongedo" autocomplete="off">
+            </div>
+
+            <div class="form-row">
+                <label for="inputNote104Unico">Note (opzionale):</label>
+                <input type="text" id="inputNote104Unico" placeholder="es. Assistenza familiare">
+            </div>
+
+            <button style="background-color: var(--purple);" onclick="registraLegge104Unica()">Registra Legge 104</button>
+        </div>
+
+        <!-- Scheda Backup e Ripristino -->
+        <div class="card">
+            <h3>💾 Backup e Ripristino</h3>
+            <div class="form-row">
+                <button style="background-color: #10b981;" onclick="esportaDati()">Esporta Dati (.json)</button>
+            </div>
+            <div class="form-row">
+                <label for="fileImport" style="cursor: pointer; background: var(--border); padding: 7px; border-radius: 4px; text-align: center; font-size: 0.85rem; font-weight: 600; display: block; color: var(--text);">📁 Importa Dati</label>
+                <input type="file" id="fileImport" accept=".json" style="display: none;" onchange="importaDati(event)">
+            </div>
         </div>
     </div>
 
-    <div class="card" style="margin-bottom: 16px;">
-        <h3>Saldi Attuali Accumulati</h3>
+    <div class="card" style="margin-bottom: 10px;">
+        <h3 style="margin-bottom: 6px;">Saldi Attuali Accumulati</h3>
         <div class="summary-grid">
             <div class="summary-item">Totale Ferie <span id="sumFerie">0.00 h</span></div>
             <div class="summary-item">Totale ROL <span id="sumRol">0.00 h</span></div>
             <div class="summary-item">Totale Ex Fest <span id="sumExFest">0.00 h</span></div>
-            <div class="summary-item">Ticket Maturati <span id="sumTicketMaturati">0</span></div>
             <div class="summary-item">Ticket Saldo <span id="sumTicket">0</span></div>
             <div class="summary-item">Totale Malattia <span id="sumMalattia">0 gg</span></div>
-            <div class="summary-item">Totale Legge 104 <span id="sumL104">0 gg</span></div>
-            <div class="summary-item">Totale Congedi <span id="sumCongedo">0 gg</span></div>
+            <div class="summary-item">Permessi 104 <span id="sum104">0 gg</span></div>
+            <div class="summary-item">Congedo 104 <span id="sumCongedo">0 gg</span></div>
         </div>
     </div>
 
-    <!-- Sezione Dettagli Assenze -->
+    <!-- Sezione Dettagli Ferie / ROL / Ex Fest Presi -->
     <details>
-        <summary>🏥 Registro Dettagliato Assenze (Malattie, Legge 104, Congedi)</summary>
+        <summary>🏖️ Registro Dettagliato Ferie, ROL ed Ex Festività Presi</summary>
         <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
-                        <th>Data Assenza</th>
-                        <th>Tipologia</th>
+                        <th>Data</th>
+                        <th>Mese Riferimento</th>
+                        <th>Tipo</th>
+                        <th>Ore</th>
+                        <th>Azione</th>
+                    </tr>
+                </thead>
+                <tbody id="tabellaFerieRolCorpo"></tbody>
+            </table>
+        </div>
+    </details>
+
+    <!-- Sezione Dettagli Malattia -->
+    <details>
+        <summary>🏥 Registro Giorni di Malattia Dettagliato</summary>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data Malattia</th>
                         <th>Mese Riferimento</th>
                         <th>Note / Info</th>
                         <th>Azione</th>
@@ -301,9 +379,44 @@
         </div>
     </details>
 
+    <!-- Sezione Dettagli Legge 104 -->
+    <details>
+        <summary>♿ Registro Legge 104 (Permessi e Congedi)</summary>
+        <h4 style="margin: 6px 0 2px 0; font-size: 0.85rem; color: var(--text-heading);">Permessi 3 Giorni Mensili</h4>
+        <div class="table-responsive" style="margin-bottom: 8px;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Mese Riferimento</th>
+                        <th>Note</th>
+                        <th>Azione</th>
+                    </tr>
+                </thead>
+                <tbody id="tabellaPermessi104Corpo"></tbody>
+            </table>
+        </div>
+
+        <h4 style="margin: 8px 0 2px 0; font-size: 0.85rem; color: var(--text-heading);">Congedi Straordinari</h4>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data Inizio</th>
+                        <th>Data Fine</th>
+                        <th>Giorni Totali</th>
+                        <th>Note</th>
+                        <th>Azione</th>
+                    </tr>
+                </thead>
+                <tbody id="tabellaCongedi104Corpo"></tbody>
+            </table>
+        </div>
+    </details>
+
     <details>
         <summary>⚙️ Mostra / Nascondi Dati Mensili Modificabili</summary>
-        <p style="font-size: 0.8rem; color: var(--primary); margin-top: 8px;">Modifica i valori nelle caselle sotto e premi il pulsante verde per confermare e salvare le modifiche.</p>
+        <p style="font-size: 0.75rem; color: var(--primary); margin: 4px 0;">Modifica i valori nelle caselle e premi il pulsante verde per confermare.</p>
         
         <div class="table-responsive">
             <table>
@@ -322,9 +435,8 @@
                         <th>Ticket Mat.</th>
                         <th>Ticket Spesi</th>
                         <th>Tot. Ticket</th>
-                        <th>Gg Malat.</th>
-                        <th>Gg L.104</th>
-                        <th>Gg Cong.</th>
+                        <th>Gg Malattia</th>
+                        <th>Tot. Malattia</th>
                         <th>Azione</th>
                     </tr>
                 </thead>
@@ -341,37 +453,40 @@
     const ACCREDITO_ROL = 3.33;
     const ACCREDITO_EX_FEST = 2.67;
 
-    const datiInizialiDefault = [
-        { mese: '2026-07', ferieMaturate: 14.66, feriePrese: 0, rolMaturati: 3.33, rolPresi: 0, exFestMaturate: 2.67, exFestPrese: 0, ticketMaturati: 0, ticketSpesi: 0 },
-        { mese: '2026-08', ferieMaturate: 14.66, feriePrese: 0, rolMaturati: 3.33, rolPresi: 0, exFestMaturate: 2.67, exFestPrese: 0, ticketMaturati: 0, ticketSpesi: 0 }
-    ];
-
     let dati = [];
     let malattie = [];
+    let ferieRolPresi = [];
+    let permessi104 = [];
+    let congedi104 = [];
 
     function caricaDatiIniziali() {
         try {
             const saved = localStorage.getItem('datiFerieApp');
-            if (saved) {
-                dati = JSON.parse(saved);
-            } else {
-                dati = JSON.parse(JSON.stringify(datiInizialiDefault));
-                salvaDati();
-            }
+            if (saved) dati = JSON.parse(saved);
 
             const savedMalattie = localStorage.getItem('datiMalattieApp');
-            if (savedMalattie) {
-                malattie = JSON.parse(savedMalattie);
-                // Retrocompatibilità per i vecchi record privi di tipologia
-                malattie.forEach(m => {
-                    if (!m.tipo) m.tipo = 'Malattia';
-                });
-            } else {
-                malattie = [];
+            if (savedMalattie) malattie = JSON.parse(savedMalattie);
+
+            const savedFerieRol = localStorage.getItem('datiFerieRolPresiApp');
+            if (savedFerieRol) ferieRolPresi = JSON.parse(savedFerieRol);
+
+            const saved104 = localStorage.getItem('datiPermessi104App');
+            if (saved104) permessi104 = JSON.parse(saved104);
+
+            const savedCongedi = localStorage.getItem('datiCongedi104App');
+            if (savedCongedi) congedi104 = JSON.parse(savedCongedi);
+
+            const savedTema = localStorage.getItem('temaFerieApp');
+            if (savedTema) {
+                document.documentElement.setAttribute('data-theme', savedTema);
+                aggiornaStatoBottoneTema(savedTema);
             }
         } catch(e) {
-            dati = JSON.parse(JSON.stringify(datiInizialiDefault));
+            dati = [];
             malattie = [];
+            ferieRolPresi = [];
+            permessi104 = [];
+            congedi104 = [];
         }
     }
 
@@ -379,30 +494,59 @@
         try {
             localStorage.setItem('datiFerieApp', JSON.stringify(dati));
             localStorage.setItem('datiMalattieApp', JSON.stringify(malattie));
+            localStorage.setItem('datiFerieRolPresiApp', JSON.stringify(ferieRolPresi));
+            localStorage.setItem('datiPermessi104App', JSON.stringify(permessi104));
+            localStorage.setItem('datiCongedi104App', JSON.stringify(congedi104));
         } catch(e) {}
     }
 
-    function controllaEAccreditaMeseAutomatico() {
-        const oggi = new Date();
-        const anno = oggi.getFullYear();
-        const mese = String(oggi.getMonth() + 1).padStart(2, '0');
-        const meseCorrenteStr = `${anno}-${mese}`;
+    function esportaDati() {
+        const backup = {
+            dati: dati,
+            malattie: malattie,
+            ferieRolPresi: ferieRolPresi,
+            permessi104: permessi104,
+            congedi104: congedi104,
+            tema: document.documentElement.getAttribute('data-theme') || 'dark'
+        };
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backup, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", `backup_gestione_ferie_${new Date().toISOString().slice(0,10)}.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+    }
 
-        if (!dati.some(d => d.mese === meseCorrenteStr)) {
-            dati.push({
-                mese: meseCorrenteStr,
-                ferieMaturate: ACCREDITO_FERIE,
-                feriePrese: 0,
-                rolMaturati: ACCREDITO_ROL,
-                rolPresi: 0,
-                exFestMaturate: ACCREDITO_EX_FEST,
-                exFestPrese: 0,
-                ticketMaturati: 0,
-                ticketSpesi: 0
-            });
-            dati.sort((a, b) => a.mese.localeCompare(b.mese));
-            salvaDati();
-        }
+    function importaDati(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const content = JSON.parse(e.target.result);
+                if (content.dati && Array.isArray(content.dati)) {
+                    dati = content.dati;
+                    malattie = content.malattie || [];
+                    ferieRolPresi = content.ferieRolPresi || [];
+                    permessi104 = content.permessi104 || [];
+                    congedi104 = content.congedi104 || [];
+                    if (content.tema) {
+                        document.documentElement.setAttribute('data-theme', content.tema);
+                        aggiornaStatoBottoneTema(content.tema);
+                        try { localStorage.setItem('temaFerieApp', content.tema); } catch(e){}
+                    }
+                    salvaDati();
+                    render();
+                    alert('Dati importati con successo!');
+                } else {
+                    alert('Il file selezionato non è valido.');
+                }
+            } catch(err) {
+                alert('Errore durante la lettura del file JSON.');
+            }
+        };
+        reader.readAsText(file);
     }
 
     function impostaMeseCorrenteInput() {
@@ -410,12 +554,75 @@
         const anno = oggi.getFullYear();
         const mese = String(oggi.getMonth() + 1).padStart(2, '0');
         const giorno = String(oggi.getDate()).padStart(2, '0');
+        const dataOggiStr = `${anno}-${mese}-${giorno}`;
         
         const elemMese = document.getElementById('inputMese');
         if (elemMese) elemMese.value = `${anno}-${mese}`;
 
         const elemData = document.getElementById('inputDataMalattia');
-        if (elemData) elemData.value = `${anno}-${mese}-${giorno}`;
+        if (elemData) elemData.value = dataOggiStr;
+
+        const elemDataFR = document.getElementById('inputDataFerieRol');
+        if (elemDataFR) elemDataFR.value = dataOggiStr;
+
+        const elemData104 = document.getElementById('inputData104');
+        if (elemData104) elemData104.value = dataOggiStr;
+
+        const elemInizio = document.getElementById('inputDataInizioCongedo');
+        if (elemInizio) elemInizio.value = dataOggiStr;
+
+        const elemFine = document.getElementById('inputDataFineCongedo');
+        if (elemFine) elemFine.value = dataOggiStr;
+    }
+
+    // Accredita automaticamente tutti i mesi da Luglio 2026 fino al mese corrente
+    function verificaEInizializzaMesiDaLuglio2026() {
+        const oggi = new Date();
+        let dataIter = new Date(2026, 6, 1); // Luglio 2026 (il mese 6 in JS è Luglio)
+        const limiteData = new Date(oggi.getFullYear(), oggi.getMonth(), 1);
+
+        while (dataIter <= limiteData) {
+            const anno = dataIter.getFullYear();
+            const mese = String(dataIter.getMonth() + 1).padStart(2, '0');
+            const meseStr = `${anno}-${mese}`;
+
+            if (!dati.some(d => d.mese === meseStr)) {
+                dati.push({
+                    mese: meseStr,
+                    ferieMaturate: ACCREDITO_FERIE,
+                    feriePrese: 0,
+                    rolMaturati: ACCREDITO_ROL,
+                    rolPresi: 0,
+                    exFestMaturate: ACCREDITO_EX_FEST,
+                    exFestPrese: 0,
+                    ticketMaturati: 0,
+                    ticketSpesi: 0
+                });
+            }
+
+            // Passa al mese successivo
+            dataIter.setMonth(dataIter.getMonth() + 1);
+        }
+
+        dati.sort((a, b) => a.mese.localeCompare(b.mese));
+        salvaDati();
+    }
+
+    function gestisciCambioTipo104() {
+        const tipo = document.getElementById('selectTipo104').value;
+        const rowSingolo = document.getElementById('rowPermessoSingolo');
+        const rowInizio = document.getElementById('rowCongedoInizio');
+        const rowFine = document.getElementById('rowCongedoFine');
+
+        if (tipo === 'permesso') {
+            rowSingolo.style.display = 'flex';
+            rowInizio.style.display = 'none';
+            rowFine.style.display = 'none';
+        } else {
+            rowSingolo.style.display = 'none';
+            rowInizio.style.display = 'flex';
+            rowFine.style.display = 'flex';
+        }
     }
 
     function formattaMeseAnno(strMese) {
@@ -454,6 +661,23 @@
         }
     }
 
+    function verificaAssicuraMese(meseRiferimento) {
+        if (!dati.some(d => d.mese === meseRiferimento)) {
+            dati.push({
+                mese: meseRiferimento,
+                ferieMaturate: ACCREDITO_FERIE,
+                feriePrese: 0,
+                rolMaturati: ACCREDITO_ROL,
+                rolPresi: 0,
+                exFestMaturate: ACCREDITO_EX_FEST,
+                exFestPrese: 0,
+                ticketMaturati: 0,
+                ticketSpesi: 0
+            });
+            dati.sort((a, b) => a.mese.localeCompare(b.mese));
+        }
+    }
+
     function aggiungiMeseManuale() {
         const meseInput = document.getElementById('inputMese').value;
         const ticketVal = document.getElementById('inputTicketVuoto').value;
@@ -484,49 +708,57 @@
         salvaDati();
         render();
         
-        impostaMeseCorrenteInput();
         document.getElementById('inputTicketVuoto').value = '';
         alert('Mese inserito e accreditato con successo!');
     }
 
-    function aggiungiAssenza() {
-        const tipoVal = document.getElementById('selectTipoAssenza').value;
+    function aggiungiFerieRolPresi() {
+        const dataVal = document.getElementById('inputDataFerieRol').value;
+        const tipoVal = document.getElementById('selectTipoPermesso').value;
+        const oreVal = document.getElementById('inputOrePermesso').value;
+
+        if (!dataVal || !oreVal) {
+            alert('Inserisci la data e le ore.');
+            return;
+        }
+
+        const meseRiferimento = dataVal.substring(0, 7);
+        verificaAssicuraMese(meseRiferimento);
+
+        ferieRolPresi.push({
+            data: dataVal,
+            mese: meseRiferimento,
+            tipo: tipoVal,
+            ore: parseFloat(oreVal) || 0
+        });
+
+        ferieRolPresi.sort((a, b) => a.data.localeCompare(b.data));
+        salvaDati();
+        render();
+        alert('Assenza registrata con successo!');
+    }
+
+    function eliminaFerieRolPresi(index) {
+        if (confirm('Vuoi cancellare questa registrazione?')) {
+            ferieRolPresi.splice(index, 1);
+            salvaDati();
+            render();
+        }
+    }
+
+    function aggiungiMalattia() {
         const dataVal = document.getElementById('inputDataMalattia').value;
         const noteVal = document.getElementById('inputNoteMalattia').value;
 
         if (!dataVal) {
-            alert('Seleziona la data dell\'assenza.');
+            alert('Seleziona la data della malattia.');
             return;
         }
 
-        const meseRiferimento = dataVal.substring(0, 7); // yyyy-mm
-
-        // Controllo limite 3 giorni mensili per Legge 104
-        if (tipoVal === 'Legge 104') {
-            const conteggioL104Mese = malattie.filter(m => m.mese === meseRiferimento && m.tipo === 'Legge 104').length;
-            if (conteggioL104Mese >= 3) {
-                alert('Attenzione: hai già inserito 3 giorni di Legge 104 per questo mese!');
-                return;
-            }
-        }
-
-        if (!dati.some(d => d.mese === meseRiferimento)) {
-            dati.push({
-                mese: meseRiferimento,
-                ferieMaturate: ACCREDITO_FERIE,
-                feriePrese: 0,
-                rolMaturati: ACCREDITO_ROL,
-                rolPresi: 0,
-                exFestMaturate: ACCREDITO_EX_FEST,
-                exFestPrese: 0,
-                ticketMaturati: 0,
-                ticketSpesi: 0
-            });
-            dati.sort((a, b) => a.mese.localeCompare(b.mese));
-        }
+        const meseRiferimento = dataVal.substring(0, 7);
+        verificaAssicuraMese(meseRiferimento);
 
         malattie.push({
-            tipo: tipoVal,
             data: dataVal,
             mese: meseRiferimento,
             note: noteVal || '-'
@@ -537,12 +769,93 @@
         render();
 
         document.getElementById('inputNoteMalattia').value = '';
-        alert(`Giorno di ${tipoVal} registrato con successo!`);
+        alert('Giorno di malattia registrato!');
     }
 
     function eliminaMalattia(index) {
-        if (confirm('Vuoi cancellare questa registrazione di assenza?')) {
+        if (confirm('Vuoi cancellare questa registrazione di malattia?')) {
             malattie.splice(index, 1);
+            salvaDati();
+            render();
+        }
+    }
+
+    function registraLegge104Unica() {
+        const tipo = document.getElementById('selectTipo104').value;
+        const noteVal = document.getElementById('inputNote104Unico').value;
+
+        if (tipo === 'permesso') {
+            const dataVal = document.getElementById('inputData104').value;
+            if (!dataVal) {
+                alert('Seleziona la data del permesso 104.');
+                return;
+            }
+
+            const meseRiferimento = dataVal.substring(0, 7);
+            verificaAssicuraMese(meseRiferimento);
+
+            permessi104.push({
+                data: dataVal,
+                mese: meseRiferimento,
+                note: noteVal || '-'
+            });
+
+            permessi104.sort((a, b) => a.data.localeCompare(b.data));
+            salvaDati();
+            render();
+
+            document.getElementById('inputNote104Unico').value = '';
+            alert('Permesso Legge 104 (3 giorni) registrato!');
+        } else {
+            const inizioVal = document.getElementById('inputDataInizioCongedo').value;
+            const fineVal = document.getElementById('inputDataFineCongedo').value;
+
+            if (!inizioVal || !fineVal) {
+                alert('Inserisci la data di inizio e di fine del congedo.');
+                return;
+            }
+
+            if (inizioVal > fineVal) {
+                alert('La data di inizio non può essere successiva alla data di fine.');
+                return;
+            }
+
+            const d1 = new Date(inizioVal);
+            const d2 = new Date(fineVal);
+            const diffTime = Math.abs(d2 - d1);
+            const giorniTotali = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+            const meseRiferimento = inizioVal.substring(0, 7);
+            verificaAssicuraMese(meseRiferimento);
+
+            congedi104.push({
+                dataInizio: inizioVal,
+                dataFine: fineVal,
+                mese: meseRiferimento,
+                giorni: giorniTotali,
+                note: noteVal || '-'
+            });
+
+            congedi104.sort((a, b) => a.dataInizio.localeCompare(b.dataInizio));
+            salvaDati();
+            render();
+
+            document.getElementById('inputNote104Unico').value = '';
+            alert(`Congedo straordinario registrato (${giorniTotali} giorni)!`);
+        }
+    }
+
+    function eliminaPermesso104(index) {
+        if (confirm('Vuoi cancellare questo permesso 104?')) {
+            permessi104.splice(index, 1);
+            salvaDati();
+            render();
+        }
+    }
+
+    function eliminaCongedo104(index) {
+        if (confirm('Vuoi cancellare questo congedo straordinario?')) {
+            congedi104.splice(index, 1);
             salvaDati();
             render();
         }
@@ -553,29 +866,23 @@
 
         dati.forEach((row, index) => {
             const fm = document.getElementById(`fm_${index}`).value;
-            const fp = document.getElementById(`fp_${index}`).value;
             const rm = document.getElementById(`rm_${index}`).value;
-            const rp = document.getElementById(`rp_${index}`).value;
             const efm = document.getElementById(`efm_${index}`).value;
-            const efp = document.getElementById(`efp_${index}`).value;
 
-            if (fm === '' || fp === '' || rm === '' || rp === '' || efm === '' || efp === '') {
+            if (fm === '' || rm === '' || efm === '') {
                 campiValidi = false;
             }
         });
 
         if (!campiValidi) {
-            alert('Compila tutti i campi prima di salvare le modifiche.');
+            alert('Compila tutti i campi obbligatori prima di salvare le modifiche.');
             return;
         }
 
         dati.forEach((row, index) => {
             row.ferieMaturate = parseFloat(document.getElementById(`fm_${index}`).value) || 0;
-            row.feriePrese = parseFloat(document.getElementById(`fp_${index}`).value) || 0;
             row.rolMaturati = parseFloat(document.getElementById(`rm_${index}`).value) || 0;
-            row.rolPresi = parseFloat(document.getElementById(`rp_${index}`).value) || 0;
             row.exFestMaturate = parseFloat(document.getElementById(`efm_${index}`).value) || 0;
-            row.exFestPrese = parseFloat(document.getElementById(`efp_${index}`).value) || 0;
             row.ticketMaturati = parseFloat(document.getElementById(`tm_${index}`).value) || 0;
             row.ticketSpesi = parseFloat(document.getElementById(`ts_${index}`).value) || 0;
         });
@@ -606,10 +913,13 @@
     }
 
     function eliminaMese(index) {
-        if (confirm('Vuoi cancellare questa riga?')) {
+        if (confirm('Vuoi cancellare questa riga mensile?')) {
             const meseDaRimuovere = dati[index].mese;
             dati.splice(index, 1);
             malattie = malattie.filter(m => m.mese !== meseDaRimuovere);
+            ferieRolPresi = ferieRolPresi.filter(f => f.mese !== meseDaRimuovere);
+            permessi104 = permessi104.filter(p => p.mese !== meseDaRimuovere);
+            congedi104 = congedi104.filter(c => c.mese !== meseDaRimuovere);
             salvaDati();
             render();
         }
@@ -618,26 +928,46 @@
     function render() {
         const tbody = document.getElementById('tabellaCorpo');
         const tbodyMalattie = document.getElementById('tabellaMalattieCorpo');
+        const tbodyFerieRol = document.getElementById('tabellaFerieRolCorpo');
+        const tbodyPermessi104 = document.getElementById('tabellaPermessi104Corpo');
+        const tbodyCongedi104 = document.getElementById('tabellaCongedi104Corpo');
         const selectTicket = document.getElementById('selectMeseTicket');
-        if (!tbody || !selectTicket || !tbodyMalattie) return;
+        
+        if (!tbody || !selectTicket || !tbodyMalattie || !tbodyFerieRol || !tbodyPermessi104 || !tbodyCongedi104) return;
 
         tbody.innerHTML = '';
         tbodyMalattie.innerHTML = '';
+        tbodyFerieRol.innerHTML = '';
+        tbodyPermessi104.innerHTML = '';
+        tbodyCongedi104.innerHTML = '';
         selectTicket.innerHTML = '<option value="">-- Seleziona Mese --</option>';
 
-        // Render Tabella Registro Assenze
+        // Render Ferie/ROL Presi
+        if (ferieRolPresi.length === 0) {
+            tbodyFerieRol.innerHTML = '<tr><td colspan="5">Nessun permesso o ferie registrato</td></tr>';
+        } else {
+            ferieRolPresi.forEach((f, idx) => {
+                let tipoLabel = f.tipo === 'ferie' ? 'Ferie' : (f.tipo === 'rol' ? 'ROL' : 'Ex Festività');
+                const trFR = document.createElement('tr');
+                trFR.innerHTML = `
+                    <td><strong>${formattaDataItaliana(f.data)}</strong></td>
+                    <td>${formattaMeseAnno(f.mese)}</td>
+                    <td>${tipoLabel}</td>
+                    <td>${f.ore} h</td>
+                    <td><button class="btn-del" onclick="eliminaFerieRolPresi(${idx})">X</button></td>
+                `;
+                tbodyFerieRol.appendChild(trFR);
+            });
+        }
+
+        // Render Malattie
         if (malattie.length === 0) {
-            tbodyMalattie.innerHTML = '<tr><td colspan="5">Nessun giorno di assenza registrato</td></tr>';
+            tbodyMalattie.innerHTML = '<tr><td colspan="4">Nessun giorno di malattia registrato</td></tr>';
         } else {
             malattie.forEach((m, idx) => {
-                let badgeClass = 'badge-malattia';
-                if (m.tipo === 'Legge 104') badgeClass = 'badge-104';
-                if (m.tipo === 'Congedo Straordinario') badgeClass = 'badge-congedo';
-
                 const trM = document.createElement('tr');
                 trM.innerHTML = `
                     <td><strong>${formattaDataItaliana(m.data)}</strong></td>
-                    <td><span class="${badgeClass}">${m.tipo || 'Malattia'}</span></td>
                     <td>${formattaMeseAnno(m.mese)}</td>
                     <td>${m.note}</td>
                     <td><button class="btn-del" onclick="eliminaMalattia(${idx})">X</button></td>
@@ -646,73 +976,103 @@
             });
         }
 
+        // Render Permessi 104
+        if (permessi104.length === 0) {
+            tbodyPermessi104.innerHTML = '<tr><td colspan="4">Nessun permesso 104 registrato</td></tr>';
+        } else {
+            permessi104.forEach((p, idx) => {
+                const trP = document.createElement('tr');
+                trP.innerHTML = `
+                    <td><strong>${formattaDataItaliana(p.data)}</strong></td>
+                    <td>${formattaMeseAnno(p.mese)}</td>
+                    <td>${p.note}</td>
+                    <td><button class="btn-del" onclick="eliminaPermesso104(${idx})">X</button></td>
+                `;
+                tbodyPermessi104.appendChild(trP);
+            });
+        }
+
+        // Render Congedi 104
+        if (congedi104.length === 0) {
+            tbodyCongedi104.innerHTML = '<tr><td colspan="5">Nessun congedo 104 registrato</td></tr>';
+        } else {
+            congedi104.forEach((c, idx) => {
+                const trC = document.createElement('tr');
+                trC.innerHTML = `
+                    <td><strong>${formattaDataItaliana(c.dataInizio)}</strong></td>
+                    <td><strong>${formattaDataItaliana(c.dataFine)}</strong></td>
+                    <td>${c.giorni} gg</td>
+                    <td>${c.note}</td>
+                    <td><button class="btn-del" onclick="eliminaCongedo104(${idx})">X</button></td>
+                `;
+                tbodyCongedi104.appendChild(trC);
+            });
+        }
+
         let cumFerie = 0;
         let cumRol = 0;
         let cumExFest = 0;
-        let totTicketMaturati = 0;
         let cumTicket = 0;
         let cumMalattia = 0;
-        let cumL104 = 0;
-        let cumCongedo = 0;
+        let cum104 = permessi104.length;
+        let cumCongedo = congedi104.reduce((acc, curr) => acc + curr.giorni, 0);
 
-        dati.forEach((row, index) => {
-            cumFerie += (row.ferieMaturate - row.feriePrese);
-            cumRol += (row.rolMaturati - row.rolPresi);
-            cumExFest += (row.exFestMaturate - row.exFestPrese);
-            totTicketMaturati += row.ticketMaturati;
-            cumTicket += (row.ticketMaturati - row.ticketSpesi);
+        if (dati.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="16">Nessun mese registrato. Aggiungi il primo mese sopra.</td></tr>';
+        } else {
+            dati.forEach((row, index) => {
+                const feriePreseMese = ferieRolPresi.filter(f => f.mese === row.mese && f.tipo === 'ferie').reduce((acc, curr) => acc + curr.ore, 0);
+                const rolPresiMese = ferieRolPresi.filter(f => f.mese === row.mese && f.tipo === 'rol').reduce((acc, curr) => acc + curr.ore, 0);
+                const exFestPreseMese = ferieRolPresi.filter(f => f.mese === row.mese && f.tipo === 'exFest').reduce((acc, curr) => acc + curr.ore, 0);
 
-            // Conteggio separato per tipologia di assenza
-            const ggMalattiaMese = malattie.filter(m => m.mese === row.mese && (m.tipo === 'Malattia' || !m.tipo)).length;
-            const ggL104Mese = malattie.filter(m => m.mese === row.mese && m.tipo === 'Legge 104').length;
-            const ggCongedoMese = malattie.filter(m => m.mese === row.mese && m.tipo === 'Congedo Straordinario').length;
+                cumFerie += (row.ferieMaturate - feriePreseMese);
+                cumRol += (row.rolMaturati - rolPresiMese);
+                cumExFest += (row.exFestMaturate - exFestPreseMese);
+                cumTicket += (row.ticketMaturati - row.ticketSpesi);
 
-            cumMalattia += ggMalattiaMese;
-            cumL104 += ggL104Mese;
-            cumCongedo += ggCongedoMese;
+                const ggMalattiaMese = malattie.filter(m => m.mese === row.mese).length;
 
-            const opt = document.createElement('option');
-            opt.value = index;
-            opt.innerText = formattaMeseAnno(row.mese);
-            selectTicket.appendChild(opt);
+                const opt = document.createElement('option');
+                opt.value = index;
+                opt.innerText = formattaMeseAnno(row.mese);
+                selectTicket.appendChild(opt);
 
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><strong>${formattaMeseAnno(row.mese)}</strong></td>
-                <td><input type="number" step="0.01" id="fm_${index}" class="table-input" value="${row.ferieMaturate}" required></td>
-                <td><input type="number" step="0.01" id="fp_${index}" class="table-input" value="${row.feriePrese}" required></td>
-                <td class="highlight">${cumFerie.toFixed(2)}</td>
-                <td><input type="number" step="0.01" id="rm_${index}" class="table-input" value="${row.rolMaturati}" required></td>
-                <td><input type="number" step="0.01" id="rp_${index}" class="table-input" value="${row.rolPresi}" required></td>
-                <td class="highlight">${cumRol.toFixed(2)}</td>
-                <td><input type="number" step="0.01" id="efm_${index}" class="table-input" value="${row.exFestMaturate}" required></td>
-                <td><input type="number" step="0.01" id="efp_${index}" class="table-input" value="${row.exFestPrese}" required></td>
-                <td class="highlight">${cumExFest.toFixed(2)}</td>
-                <td><input type="number" id="tm_${index}" class="table-input" value="${row.ticketMaturati}"></td>
-                <td><input type="number" id="ts_${index}" class="table-input" value="${row.ticketSpesi}"></td>
-                <td class="highlight">${cumTicket}</td>
-                <td>${ggMalattiaMese} gg</td>
-                <td>${ggL104Mese} gg</td>
-                <td>${ggCongedoMese} gg</td>
-                <td><button class="btn-del" onclick="eliminaMese(${index})">X</button></td>
-            `;
-            tbody.appendChild(tr);
-        });
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${formattaMeseAnno(row.mese)}</strong></td>
+                    <td><input type="number" step="0.01" id="fm_${index}" class="table-input" value="${row.ferieMaturate}" required></td>
+                    <td style="font-weight: bold; color: var(--danger);">${feriePreseMese.toFixed(2)} h</td>
+                    <td class="highlight">${cumFerie.toFixed(2)}</td>
+                    <td><input type="number" step="0.01" id="rm_${index}" class="table-input" value="${row.rolMaturati}" required></td>
+                    <td style="font-weight: bold; color: var(--danger);">${rolPresiMese.toFixed(2)} h</td>
+                    <td class="highlight">${cumRol.toFixed(2)}</td>
+                    <td><input type="number" step="0.01" id="efm_${index}" class="table-input" value="${row.exFestMaturate}" required></td>
+                    <td style="font-weight: bold; color: var(--danger);">${exFestPreseMese.toFixed(2)} h</td>
+                    <td class="highlight">${cumExFest.toFixed(2)}</td>
+                    <td><input type="number" id="tm_${index}" class="table-input" value="${row.ticketMaturati}"></td>
+                    <td><input type="number" id="ts_${index}" class="table-input" value="${row.ticketSpesi}"></td>
+                    <td class="highlight">${cumTicket}</td>
+                    <td>${ggMalattiaMese} gg</td>
+                    <td class="highlight">${malattie.filter(m => m.mese <= row.mese).length} gg</td>
+                    <td><button class="btn-del" onclick="eliminaMese(${index})">X</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
         document.getElementById('sumFerie').innerText = cumFerie.toFixed(2) + ' h';
         document.getElementById('sumRol').innerText = cumRol.toFixed(2) + ' h';
         document.getElementById('sumExFest').innerText = cumExFest.toFixed(2) + ' h';
-        document.getElementById('sumTicketMaturati').innerText = totTicketMaturati;
         document.getElementById('sumTicket').innerText = cumTicket;
-        document.getElementById('sumMalattia').innerText = cumMalattia + ' gg';
-        document.getElementById('sumL104').innerText = cumL104 + ' gg';
+        document.getElementById('sumMalattia').innerText = malattie.length + ' gg';
+        document.getElementById('sum104').innerText = cum104 + ' gg';
         document.getElementById('sumCongedo').innerText = cumCongedo + ' gg';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
         caricaDatiIniziali();
-        controllaEAccreditaMeseAutomatico();
         impostaMeseCorrenteInput();
+        verificaEInizializzaMesiDaLuglio2026(); // Genera automaticamente i mesi a partire da Luglio 2026 fino ad oggi
         render();
     });
 </script>
