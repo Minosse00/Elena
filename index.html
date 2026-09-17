@@ -88,13 +88,14 @@
             margin-bottom: 16px;
         }
 
+        /* Card usate come container standard o dentro i details */
         .card {
             background: var(--card-bg);
             padding: 16px;
             border-radius: 12px;
             border: 1px solid var(--border);
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            min-width: 0; /* Impedisce ai contenuti interni di espandersi oltre i bordi della card */
+            min-width: 0;
         }
 
         .card h3 {
@@ -133,7 +134,7 @@
             border-radius: 6px;
             font-size: 0.9rem;
             width: 100%;
-            min-width: 0; /* Fondamentale per evitare l'overflow degli input data */
+            min-width: 0;
         }
 
         button {
@@ -266,10 +267,12 @@
         </button>
     </div>
 
-    <div class="grid-forms">
-        <!-- Card 1: Inserimento / Accredito Mese Manuale -->
-        <div class="card">
-            <h3>📅 + Aggiungi Mese / Accredito Manuale</h3>
+    <!-- SEZIONI DI INSERIMENTO DATI A TENDINA -->
+
+    <!-- Form 1: Inserimento / Accredito Mese Manuale -->
+    <details>
+        <summary>📅 + Aggiungi Mese / Accredito Manuale</summary>
+        <div style="margin-top: 12px;">
             <div class="form-row">
                 <label for="inputMeseManuale">Seleziona Mese *:</label>
                 <select id="inputMeseManuale" onchange="caricaValoriMeseSelezionato()" required></select>
@@ -294,12 +297,14 @@
                     <input type="number" id="inputTicketManuali" placeholder="es. 0">
                 </div>
             </div>
-            <button onclick="aggiungiMeseManuale()" style="background-color: var(--success);">+ Aggiorna Mese Selezionato</button>
+            <button onclick="aggiungiMeseManuale()" style="background-color: var(--success); margin-top: 6px;">+ Aggiorna Mese Selezionato</button>
         </div>
+    </details>
 
-        <!-- Card 2: Ferie & Permessi -->
-        <div class="card">
-            <h3>🏖️ Registra Ferie / Permessi</h3>
+    <!-- Form 2: Ferie & Permessi -->
+    <details>
+        <summary>🏖️ Registra Ferie / Permessi</summary>
+        <div style="margin-top: 12px;">
             <div class="form-row">
                 <label for="inputTipoAssenza">Tipo Assenza *:</label>
                 <select id="inputTipoAssenza">
@@ -326,12 +331,14 @@
                 <label for="inputFerieNote">Note (opzionale):</label>
                 <input type="text" id="inputFerieNote" placeholder="es. Ferie Estive">
             </div>
-            <button style="background-color: var(--secondary);" onclick="aggiungiFerie()">Inserisci Ferie/Permesso</button>
+            <button style="background-color: var(--secondary); margin-top: 6px;" onclick="aggiungiFerie()">Inserisci Ferie/Permesso</button>
         </div>
+    </details>
 
-        <!-- Card 3: Malattia e Legge 104 (Unificate) -->
-        <div class="card">
-            <h3>🏥 Registra Malattia o Legge 104</h3>
+    <!-- Form 3: Malattia e Legge 104 -->
+    <details>
+        <summary>🏥 Registra Malattia o Legge 104</summary>
+        <div style="margin-top: 12px;">
             <div class="form-row">
                 <label for="inputTipoAssenzaMal104">Tipo Assenza *:</label>
                 <select id="inputTipoAssenzaMal104">
@@ -353,12 +360,14 @@
                 <label for="inputMal104Note">Note / Certificato (opzionale):</label>
                 <input type="text" id="inputMal104Note" placeholder="es. Certificato N. o Permesso 104">
             </div>
-            <button style="background-color: var(--warning);" onclick="aggiungiMalattiaO104()">Inserisci Malattia / 104</button>
+            <button style="background-color: var(--warning); margin-top: 6px;" onclick="aggiungiMalattiaO104()">Inserisci Malattia / 104</button>
         </div>
+    </details>
 
-        <!-- Card 4: Quick Ticket Spesi -->
-        <div class="card">
-            <h3>🎫 Registra Ticket Speso</h3>
+    <!-- Form 4: Quick Ticket Spesi -->
+    <details>
+        <summary>🎫 Registra Ticket Speso</summary>
+        <div style="margin-top: 12px;">
             <div class="form-row">
                 <label for="inputTicketData">Giorno Esatto *:</label>
                 <input type="date" id="inputTicketData" onchange="aggiornaMeseDaData(this.value)" required>
@@ -375,22 +384,24 @@
                 <label for="inputTicketNote">Note (opzionale):</label>
                 <input type="text" id="inputTicketNote" placeholder="es. Pranzo di lavoro / Spesa">
             </div>
-            <button style="background-color: #0284c7;" onclick="aggiungiTicketSpeso()">Registra Ticket Speso</button>
+            <button style="background-color: #0284c7; margin-top: 6px;" onclick="aggiungiTicketSpeso()">Registra Ticket Speso</button>
         </div>
-    </div>
+    </details>
 
-    <!-- Saldi Totali Accumulati con Funzioni di Backup e Ripristino Manuale -->
-    <div class="card" style="margin-bottom: 16px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-            <div>
-                <h3 style="margin: 0; border: none; padding: 0;">Saldi Attuali Accumulati</h3>
+    <!-- Saldi Totali Accumulati (SEZIONE APERTA ALL'AVVIO) -->
+    <details class="card" open style="margin-bottom: 16px;">
+        <summary style="list-style: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                <div>
+                    <h3 style="margin: 0; border: none; padding: 0;">Saldi Attuali Accumulati</h3>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;" onclick="event.stopPropagation()">
+                    <button style="background-color: #0284c7; width: auto; padding: 6px 12px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 4px;" onclick="esportaBackup()">💾 Esporta File JSON</button>
+                    <button style="background-color: var(--purple); width: auto; padding: 6px 12px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 4px;" onclick="apriSelettoreFile()">📂 Ripristina da File</button>
+                    <input type="file" id="fileImport" accept=".json" style="display: none;" onchange="ripristinaBackup(event)">
+                </div>
             </div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <button style="background-color: #0284c7; width: auto; padding: 6px 12px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 4px;" onclick="esportaBackup()">💾 Esporta File JSON</button>
-                <button style="background-color: var(--purple); width: auto; padding: 6px 12px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 4px;" onclick="apriSelettoreFile()">📂 Ripristina da File</button>
-                <input type="file" id="fileImport" accept=".json" style="display: none;" onchange="ripristinaBackup(event)">
-            </div>
-        </div>
+        </summary>
         <div class="summary-grid">
             <div class="summary-item">Totale Ferie <span id="sumFerie">0.00 h</span></div>
             <div class="summary-item">Totale ROL <span id="sumRol">0.00 h</span></div>
@@ -400,12 +411,12 @@
             <div class="summary-item">Totale Malattia <span id="sumMalattia">0 gg</span></div>
             <div class="summary-item">Totale Legge 104 <span id="sum104">0 gg</span></div>
         </div>
-    </div>
+    </details>
 
-    <!-- REGISTRI DETTAGLIATI -->
+    <!-- REGISTRI DETTAGLIATI (CHIUSI ALL'AVVIO) -->
 
     <!-- Registro Ferie -->
-    <details open>
+    <details>
         <summary>🏖️ Registro Ferie e Permessi Utilizzati (Editabile)</summary>
         <div class="table-responsive">
             <table>
@@ -425,7 +436,7 @@
     </details>
 
     <!-- Registro Malattia e Legge 104 Unificato -->
-    <details open>
+    <details>
         <summary>🏥 Registro Malattie e Legge 104 (Editabile)</summary>
         <div class="table-responsive">
             <table>
@@ -445,7 +456,7 @@
     </details>
 
     <!-- Registro Ticket Spesi -->
-    <details open>
+    <details>
         <summary>🎫 Registro Ticket Spesi per Giorno (Editabile)</summary>
         <div class="table-responsive">
             <table>
@@ -464,7 +475,7 @@
     </details>
 
     <!-- Prospetto Mensile Editabile -->
-    <details open>
+    <details>
         <summary>⚙️ Prospetto Mensile Riconciliato (Salvataggio in locale)</summary>
         <p style="font-size: 0.8rem; color: var(--primary); margin-top: 8px;">Puoi modificare direttamente le ore maturate o i ticket di ogni mese nelle caselle sottostanti e cliccare sul pulsante verde per ricalcolare e salvare tutto nel browser.</p>
         
@@ -522,8 +533,7 @@
     let ferieLog = [];
     let mal104Log = [];
     let ticketLog = [];
-
-    let currentEditState = { type: null, index: -1 };
+    let currentEditState = { type: '', index: -1 };
 
     const NOMI_MESI = [
         'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
@@ -826,340 +836,209 @@
         riconcolaTutto();
         salvaTuttiDati();
         render();
-        alert(`Valori per il mese di ${formattaMeseAnno(meseInput)} aggiornati con successo!`);
+        alert("Mese aggiornato con successo!");
     }
 
     function aggiungiFerie() {
         const tipo = document.getElementById('inputTipoAssenza').value;
-        const da = document.getElementById('inputFerieDataInizio').value;
-        const a = document.getElementById('inputFerieDataFine').value;
+        const dInizio = document.getElementById('inputFerieDataInizio').value;
+        const dFine = document.getElementById('inputFerieDataFine').value;
         const oreGiorno = parseFloat(document.getElementById('inputFerieOreGiorno').value) || 8;
-        const note = document.getElementById('inputFerieNote').value.trim();
+        const note = document.getElementById('inputFerieNote').value;
 
-        if (!da || !a) {
-            alert("Inserisci la data di inizio e di fine.");
+        if (!dInizio || !dFine) {
+            alert("Inserisci data inizio e data fine.");
             return;
         }
 
-        const gg = calcolaGiorniLavorativi(da, a);
-        if (gg <= 0) {
-            alert("Il periodo selezionato non contiene giorni lavorativi validi (esclusi sabati e domeniche) o la data fine è precedente alla data inizio.");
+        const ggLav = calcolaGiorniLavorativi(dInizio, dFine);
+        if (ggLav <= 0) {
+            alert("Il periodo selezionato non contiene giorni lavorativi (Lun-Ven).");
             return;
         }
 
-        const oreTotali = gg * oreGiorno;
+        const oreTot = ggLav * oreGiorno;
 
-        ferieLog.push({ tipo, da, a, giorni: gg, ore: oreTotali, note });
+        ferieLog.push({
+            tipo: tipo,
+            dataInizio: dInizio,
+            dataFine: dFine,
+            giorniLavorativi: ggLav,
+            oreTotali: oreTot,
+            note: note
+        });
+
         riconcolaTutto();
         salvaTuttiDati();
         render();
-
         document.getElementById('inputFerieNote').value = '';
         alert("Ferie/Permesso registrati con successo!");
     }
 
     function aggiungiMalattiaO104() {
         const tipo = document.getElementById('inputTipoAssenzaMal104').value;
-        const da = document.getElementById('inputMal104DataInizio').value;
-        const a = document.getElementById('inputMal104DataFine').value;
-        const note = document.getElementById('inputMal104Note').value.trim();
+        const dInizio = document.getElementById('inputMal104DataInizio').value;
+        const dFine = document.getElementById('inputMal104DataFine').value;
+        const note = document.getElementById('inputMal104Note').value;
 
-        if (!da || !a) {
-            alert("Inserisci la data di inizio e di fine.");
+        if (!dInizio || !dFine) {
+            alert("Inserisci data inizio e data fine.");
             return;
         }
 
-        const gg = calcolaGiorniLavorativi(da, a);
-        if (gg <= 0) {
-            alert("Il periodo selezionato non contiene giorni lavorativi validi.");
+        const ggLav = calcolaGiorniLavorativi(dInizio, dFine);
+        if (ggLav <= 0) {
+            alert("Il periodo selezionato non contiene giorni lavorativi (Lun-Ven).");
             return;
         }
 
-        const d = new Date(da);
+        const d = new Date(dInizio);
         const y = d.getFullYear();
         const m = String(d.getMonth() + 1).padStart(2, '0');
         const meseRif = `${y}-${m}`;
 
-        mal104Log.push({ tipo, da, a, giorni: gg, meseRif, note });
-        
-        if (!dati.some(item => item.mese === meseRif)) {
-            dati.push({
-                mese: meseRif,
-                ferieMaturate: 14.66,
-                feriePrese: 0,
-                rolMaturati: 3.33,
-                rolPresi: 0,
-                exFestMaturate: 2.67,
-                exFestPrese: 0,
-                ticketMaturati: 0,
-                ticketSpesi: 0,
-                malattiePrese: 0,
-                legge104Prese: 0
-            });
-            dati.sort((a, b) => a.mese.localeCompare(b.mese));
-        }
+        mal104Log.push({
+            tipo: tipo,
+            dataInizio: dInizio,
+            dataFine: dFine,
+            giorniLavorativi: ggLav,
+            meseRif: meseRif,
+            note: note
+        });
 
         riconcolaTutto();
         salvaTuttiDati();
         render();
-
         document.getElementById('inputMal104Note').value = '';
-        alert((tipo === 'MALATTIA' ? "Malattia" : "Permesso Legge 104") + " registrato con successo!");
+        alert("Malattia o Legge 104 registrata con successo!");
     }
 
     function aggiungiTicketSpeso() {
         const dataEsatta = document.getElementById('inputTicketData').value;
         const meseRif = document.getElementById('selectMeseSpesaTicket').value;
-        const qta = parseInt(document.getElementById('inputTicketQuantita').value, 10);
-        const note = document.getElementById('inputTicketNote').value.trim();
+        const quantita = parseInt(document.getElementById('inputTicketQuantita').value, 10) || 0;
+        const note = document.getElementById('inputTicketNote').value;
 
-        if (!dataEsatta || !meseRif || isNaN(qta) || qta <= 0) {
-            alert("Compila tutti i campi obbligatori per il ticket.");
+        if (!dataEsatta || !meseRif || quantita <= 0) {
+            alert("Compila tutti i campi obbligatori per il ticket speso.");
             return;
         }
 
-        ticketLog.push({ dataEsatta, meseRif, quantita: qta, note });
-
-        if (!dati.some(item => item.mese === meseRif)) {
-            dati.push({
-                mese: meseRif,
-                ferieMaturate: 14.66,
-                feriePrese: 0,
-                rolMaturati: 3.33,
-                rolPresi: 0,
-                exFestMaturate: 2.67,
-                exFestPrese: 0,
-                ticketMaturati: 0,
-                ticketSpesi: 0,
-                malattiePrese: 0,
-                legge104Prese: 0
-            });
-            dati.sort((a, b) => a.mese.localeCompare(b.mese));
-        }
+        ticketLog.push({
+            dataEsatta: dataEsatta,
+            meseRif: meseRif,
+            quantita: quantita,
+            note: note
+        });
 
         riconcolaTutto();
         salvaTuttiDati();
         render();
-
         document.getElementById('inputTicketNote').value = '';
         document.getElementById('inputTicketQuantita').value = '1';
         alert("Ticket speso registrato con successo!");
     }
 
     function riconcolaTutto() {
-        dati.forEach(d => {
-            d.feriePrese = 0;
-            d.rolPresi = 0;
-            d.exFestPrese = 0;
-            d.ticketSpesi = 0;
-            d.malattiePrese = 0;
-            d.legge104Prese = 0;
+        dati.forEach(item => {
+            item.feriePrese = 0;
+            item.rolPresi = 0;
+            item.exFestPrese = 0;
+            item.ticketSpesi = 0;
+            item.malattiePrese = 0;
+            item.legge104Prese = 0;
         });
 
-        // Distribuisci ferie log
         ferieLog.forEach(f => {
-            let d1 = new Date(f.da);
-            let d2 = new Date(f.a);
-            if (isNaN(d1) || isNaN(d2)) return;
-
-            let cur = new Date(d1);
-            let giorniTot = f.giorni;
-            let oreTot = f.ore;
-            let orePerGiorno = giorniTot > 0 ? (oreTot / giorniTot) : 0;
-
-            while (cur <= d2) {
-                const dayOfWeek = cur.getDay();
-                if (dayOfWeek !== 0 && dayOfWeek !== 6) {
-                    const y = cur.getFullYear();
-                    const m = String(cur.getMonth() + 1).padStart(2, '0');
-                    const meseStr = `${y}-${m}`;
-
-                    let row = dati.find(item => item.mese === meseStr);
-                    if (!row) {
-                        row = {
-                            mese: meseStr,
-                            ferieMaturate: 14.66,
-                            feriePrese: 0,
-                            rolMaturati: 3.33,
-                            rolPresi: 0,
-                            exFestMaturate: 2.67,
-                            exFestPrese: 0,
-                            ticketMaturati: 0,
-                            ticketSpesi: 0,
-                            malattiePrese: 0,
-                            legge104Prese: 0
-                        };
-                        dati.push(row);
-                    }
-
-                    if (f.tipo === 'FERIE') row.feriePrese += orePerGiorno;
-                    else if (f.tipo === 'ROL') row.rolPresi += orePerGiorno;
-                    else if (f.tipo === 'EX_FEST') row.exFestPrese += orePerGiorno;
-                }
-                cur.setDate(cur.getDate() + 1);
+            const d = new Date(f.dataInizio);
+            const meseStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+            let row = dati.find(d => d.mese === meseStr);
+            if (!row) {
+                row = {
+                    mese: meseStr,
+                    ferieMaturate: 14.66,
+                    feriePrese: 0,
+                    rolMaturati: 3.33,
+                    rolPresi: 0,
+                    exFestMaturate: 2.67,
+                    exFestPrese: 0,
+                    ticketMaturati: 0,
+                    ticketSpesi: 0,
+                    malattiePrese: 0,
+                    legge104Prese: 0
+                };
+                dati.push(row);
             }
+            if (f.tipo === 'FERIE') row.feriePrese += f.oreTotali;
+            if (f.tipo === 'ROL') row.rolPresi += f.oreTotali;
+            if (f.tipo === 'EX_FEST') row.exFestPrese += f.oreTotali;
         });
 
-        // Distribuisci mal104 log
-        mal104Log.forEach(item => {
-            let row = dati.find(d => d.mese === item.meseRif);
-            if (row) {
-                if (item.tipo === 'MALATTIA') row.malattiePrese += item.giorni;
-                else if (item.tipo === 'LEGGE_104') row.legge104Prese += item.giorni;
+        mal104Log.forEach(m => {
+            let row = dati.find(d => d.mese === m.meseRif);
+            if (!row) {
+                row = {
+                    mese: m.meseRif,
+                    ferieMaturate: 14.66,
+                    feriePrese: 0,
+                    rolMaturati: 3.33,
+                    rolPresi: 0,
+                    exFestMaturate: 2.67,
+                    exFestPrese: 0,
+                    ticketMaturati: 0,
+                    ticketSpesi: 0,
+                    malattiePrese: 0,
+                    legge104Prese: 0
+                };
+                dati.push(row);
             }
+            if (m.tipo === 'MALATTIA') row.malattiePrese += m.giorniLavorativi;
+            if (m.tipo === 'LEGGE_104') row.legge104Prese += m.giorniLavorativi;
         });
 
-        // Distribuisci ticket spesi
         ticketLog.forEach(t => {
-            let row = dati.find(item => item.mese === t.meseRif);
-            if (row) {
-                row.ticketSpesi += t.quantita;
+            let row = dati.find(d => d.mese === t.meseRif);
+            if (!row) {
+                row = {
+                    mese: t.meseRif,
+                    ferieMaturate: 14.66,
+                    feriePrese: 0,
+                    rolMaturati: 3.33,
+                    rolPresi: 0,
+                    exFestMaturate: 2.67,
+                    exFestPrese: 0,
+                    ticketMaturati: 0,
+                    ticketSpesi: 0,
+                    malattiePrese: 0,
+                    legge104Prese: 0
+                };
+                dati.push(row);
             }
+            row.ticketSpesi += t.quantita;
         });
 
         dati.sort((a, b) => a.mese.localeCompare(b.mese));
     }
 
-    function render() {
-        popolaSelettoreMeseManuale();
-        aggiornaSelettoriMese();
-
-        let totFerieMat = 0, totFeriePres = 0;
-        let totRolMat = 0, totRolPres = 0;
-        let totExFestMat = 0, totExFestPres = 0;
-        let totTicketMat = 0, totTicketSpes = 0;
-        let totMalattia = 0;
-        let tot104 = 0;
-
-        dati.forEach(d => {
-            totFerieMat += d.ferieMaturate || 0;
-            totFeriePres += d.feriePrese || 0;
-            totRolMat += d.rolMaturati || 0;
-            totRolPres += d.rolPresi || 0;
-            totExFestMat += d.exFestMaturate || 0;
-            totExFestPres += d.exFestPrese || 0;
-            totTicketMat += d.ticketMaturati || 0;
-            totTicketSpes += d.ticketSpesi || 0;
-            totMalattia += d.malattiePrese || 0;
-            tot104 += d.legge104Prese || 0;
-        });
-
-        document.getElementById('sumFerie').innerText = (totFerieMat - totFeriePres).toFixed(2) + ' h';
-        document.getElementById('sumRol').innerText = (totRolMat - totRolPres).toFixed(2) + ' h';
-        document.getElementById('sumExFest').innerText = (totExFestMat - totExFestPres).toFixed(2) + ' h';
-        document.getElementById('sumTicketMaturati').innerText = totTicketMat;
-        document.getElementById('sumTicket').innerText = (totTicketMat - totTicketSpes);
-        document.getElementById('sumMalattia').innerText = totMalattia + ' gg';
-        document.getElementById('sum104').innerText = tot104 + ' gg';
-
-        // Render tabella Ferie Log
-        const tbodyFerie = document.getElementById('tabellaFerieCorpo');
-        tbodyFerie.innerHTML = '';
-        ferieLog.forEach((item, index) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><span class="badge" style="background-color: rgba(59, 130, 246, 0.2); color: var(--secondary); border: 1px solid var(--secondary);">${item.tipo}</span></td>
-                <td>${item.da} / ${item.a}</td>
-                <td>${item.giorni}</td>
-                <td>${item.ore.toFixed(2)} h</td>
-                <td>${item.note || '-'}</td>
-                <td>
-                    <button class="btn-edit" onclick="apriModalEditFerie(${index})">Mod</button>
-                    <button class="btn-del" onclick="eliminaFerie(${index})">Elimina</button>
-                </td>
-            `;
-            tbodyFerie.appendChild(tr);
-        });
-
-        // Render tabella Mal104 Log unificata
-        const tbodyMal104 = document.getElementById('tabellaMal104Corpo');
-        tbodyMal104.innerHTML = '';
-        mal104Log.forEach((item, index) => {
-            const isMal = item.tipo === 'MALATTIA';
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><span class="badge ${isMal ? 'badge-malattia' : 'badge-104'}">${isMal ? 'Malattia' : 'Legge 104'}</span></td>
-                <td>${item.da} / ${item.a}</td>
-                <td>${item.giorni}</td>
-                <td>${formattaMeseAnno(item.meseRif)}</td>
-                <td>${item.note || '-'}</td>
-                <td>
-                    <button class="btn-edit" onclick="apriModalEditMal104(${index})">Mod</button>
-                    <button class="btn-del" onclick="eliminaMal104(${index})">Elimina</button>
-                </td>
-            `;
-            tbodyMal104.appendChild(tr);
-        });
-
-        // Render tabella Ticket Log
-        const tbodyTicket = document.getElementById('tabellaTicketCorpo');
-        tbodyTicket.innerHTML = '';
-        ticketLog.forEach((item, index) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${item.dataEsatta}</td>
-                <td>${formattaMeseAnno(item.meseRif)}</td>
-                <td>${item.quantita}</td>
-                <td>${item.note || '-'}</td>
-                <td>
-                    <button class="btn-edit" onclick="apriModalEditTicket(${index})">Mod</button>
-                    <button class="btn-del" onclick="eliminaTicket(${index})">Elimina</button>
-                </td>
-            `;
-            tbodyTicket.appendChild(tr);
-        });
-
-        // Render Prospetto Mensile
-        const tbodyProspetto = document.getElementById('tabellaCorpo');
-        tbodyProspetto.innerHTML = '';
-        dati.forEach((d, index) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><strong>${formattaMeseAnno(d.mese)}</strong></td>
-                <td><input type="number" step="0.01" class="table-input" id="matFerie_${index}" value="${d.ferieMaturate}"></td>
-                <td>${(d.feriePrese || 0).toFixed(2)}</td>
-                <td class="highlight">${((d.ferieMaturate || 0) - (d.feriePrese || 0)).toFixed(2)}</td>
-                <td><input type="number" step="0.01" class="table-input" id="matRol_${index}" value="${d.rolMaturati}"></td>
-                <td>${(d.rolPresi || 0).toFixed(2)}</td>
-                <td class="highlight">${((d.rolMaturati || 0) - (d.rolPresi || 0)).toFixed(2)}</td>
-                <td><input type="number" step="0.01" class="table-input" id="matExFest_${index}" value="${d.exFestMaturate}"></td>
-                <td>${(d.exFestPrese || 0).toFixed(2)}</td>
-                <td class="highlight">${((d.exFestMaturate || 0) - (d.exFestPrese || 0)).toFixed(2)}</td>
-                <td><input type="number" class="table-input" id="matTicket_${index}" value="${d.ticketMaturati}"></td>
-                <td>${d.ticketSpesi || 0}</td>
-                <td class="highlight">${(d.ticketMaturati || 0) - (d.ticketSpesi || 0)}</td>
-                <td>${d.malattiePrese || 0}</td>
-                <td class="highlight">${d.malattiePrese || 0} gg</td>
-                <td>${d.legge104Prese || 0}</td>
-                <td class="highlight">${d.legge104Prese || 0} gg</td>
-                <td>
-                    <button class="btn-del" onclick="eliminaMeseProspetto(${index})">Elimina</button>
-                </td>
-            `;
-            tbodyProspetto.appendChild(tr);
-        });
-    }
-
     function confermaEAggiornaModifiche() {
-        dati.forEach((d, index) => {
-            const fMat = parseFloat(document.getElementById(`matFerie_${index}`).value);
-            const rMat = parseFloat(document.getElementById(`matRol_${index}`).value);
-            const eMat = parseFloat(document.getElementById(`matExFest_${index}`).value);
-            const tMat = parseInt(document.getElementById(`matTicket_${index}`).value, 10);
-
-            if (!isNaN(fMat)) d.ferieMaturate = fMat;
-            if (!isNaN(rMat)) d.rolMaturati = rMat;
-            if (!isNaN(eMat)) d.exFestMaturate = eMat;
-            if (!isNaN(tMat)) d.ticketMaturati = tMat;
+        const rows = document.querySelectorAll('#tabellaCorpo tr');
+        rows.forEach((tr, index) => {
+            const inputs = tr.querySelectorAll('input');
+            if (inputs.length >= 4) {
+                dati[index].ferieMaturate = parseFloat(inputs[0].value) || 0;
+                dati[index].rolMaturati = parseFloat(inputs[1].value) || 0;
+                dati[index].exFestMaturate = parseFloat(inputs[2].value) || 0;
+                dati[index].ticketMaturati = parseInt(inputs[3].value, 10) || 0;
+            }
         });
 
         riconcolaTutto();
         salvaTuttiDati();
         render();
-        alert("Modifiche mensili salvate e ricalcolate con successo!");
+        alert("Modifiche mensili salvate e totali ricalcolati con successo!");
     }
 
-    function eliminaFerie(index) {
+    function eliminaFerieLog(index) {
         if (confirm("Vuoi eliminare questa registrazione?")) {
             ferieLog.splice(index, 1);
             riconcolaTutto();
@@ -1168,7 +1047,7 @@
         }
     }
 
-    function eliminaMal104(index) {
+    function eliminaMal104Log(index) {
         if (confirm("Vuoi eliminare questa registrazione?")) {
             mal104Log.splice(index, 1);
             riconcolaTutto();
@@ -1177,8 +1056,8 @@
         }
     }
 
-    function eliminaTicket(index) {
-        if (confirm("Vuoi eliminare questa registrazione di ticket spesi?")) {
+    function eliminaTicketLog(index) {
+        if (confirm("Vuoi eliminare questa registrazione?")) {
             ticketLog.splice(index, 1);
             riconcolaTutto();
             salvaTuttiDati();
@@ -1186,69 +1065,59 @@
         }
     }
 
-    function eliminaMeseProspetto(index) {
-        if (confirm("Vuoi eliminare questo mese dal prospetto?")) {
-            dati.splice(index, 1);
-            riconcolaTutto();
-            salvaTuttiDati();
-            render();
+    function apriModaleEdit(type, index) {
+        currentEditState = { type, index };
+        const modal = document.getElementById('modalEdit');
+        const title = document.getElementById('modalTitle');
+        const body = document.getElementById('modalBody');
+
+        if (type === 'ferie') {
+            title.innerText = "Modifica Ferie / Permesso";
+            const item = ferieLog[index];
+            body.innerHTML = `
+                <div class="form-row">
+                    <label>Tipo Assenza:</label>
+                    <select id="editTipoAssenza">
+                        <option value="FERIE" ${item.tipo==='FERIE'?'selected':''}>Ferie</option>
+                        <option value="ROL" ${item.tipo==='ROL'?'selected':''}>ROL</option>
+                        <option value="EX_FEST" ${item.tipo==='EX_FEST'?'selected':''}>Ex Festività</option>
+                    </select>
+                </div>
+                <div class="form-row-group">
+                    <div class="form-row"><label>Data Inizio:</label><input type="date" id="editDataInizio" value="${item.dataInizio}"></div>
+                    <div class="form-row"><label>Data Fine:</label><input type="date" id="editDataFine" value="${item.dataFine}"></div>
+                </div>
+                <div class="form-row"><label>Ore Totali:</label><input type="number" step="0.5" id="editOreTotali" value="${item.oreTotali}"></div>
+                <div class="form-row"><label>Note:</label><input type="text" id="editNote" value="${item.note || ''}"></div>
+            `;
+        } else if (type === 'mal104') {
+            title.innerText = "Modifica Malattia / Legge 104";
+            const item = mal104Log[index];
+            body.innerHTML = `
+                <div class="form-row">
+                    <label>Tipo Assenza:</label>
+                    <select id="editTipoAssenzaMal104">
+                        <option value="MALATTIA" ${item.tipo==='MALATTIA'?'selected':''}>Malattia</option>
+                        <option value="LEGGE_104" ${item.tipo==='LEGGE_104'?'selected':''}>Legge 104</option>
+                    </select>
+                </div>
+                <div class="form-row-group">
+                    <div class="form-row"><label>Data Inizio:</label><input type="date" id="editDataInizio" value="${item.dataInizio}"></div>
+                    <div class="form-row"><label>Data Fine:</label><input type="date" id="editDataFine" value="${item.dataFine}"></div>
+                </div>
+                <div class="form-row"><label>Note:</label><input type="text" id="editNote" value="${item.note || ''}"></div>
+            `;
+        } else if (type === 'ticket') {
+            title.innerText = "Modifica Ticket Speso";
+            const item = ticketLog[index];
+            body.innerHTML = `
+                <div class="form-row"><label>Data Esatta:</label><input type="date" id="editDataEsatta" value="${item.dataEsatta}"></div>
+                <div class="form-row"><label>Quantità:</label><input type="number" id="editQuantita" value="${item.quantita}"></div>
+                <div class="form-row"><label>Note:</label><input type="text" id="editNote" value="${item.note || ''}"></div>
+            `;
         }
-    }
 
-    // Modal Gestione Modifica Singola
-    function apriModalEditFerie(index) {
-        currentEditState = { type: 'ferie', index };
-        const item = ferieLog[index];
-        document.getElementById('modalTitle').innerText = "Modifica Ferie/Permesso";
-        document.getElementById('modalBody').innerHTML = `
-            <div class="form-row">
-                <label>Tipo Assenza:</label>
-                <select id="editTipo">
-                    <option value="FERIE" ${item.tipo==='FERIE'?'selected':''}>Ferie</option>
-                    <option value="ROL" ${item.tipo==='ROL'?'selected':''}>ROL (Permesso)</option>
-                    <option value="EX_FEST" ${item.tipo==='EX_FEST'?'selected':''}>Ex Festività</option>
-                </select>
-            </div>
-            <div class="form-row-group">
-                <div class="form-row"><label>Data Inizio:</label><input type="date" id="editDa" value="${item.da}"></div>
-                <div class="form-row"><label>Data Fine:</label><input type="date" id="editA" value="${item.a}"></div>
-            </div>
-            <div class="form-row"><label>Note:</label><input type="text" id="editNote" value="${item.note || ''}"></div>
-        `;
-        document.getElementById('modalEdit').style.display = 'flex';
-    }
-
-    function apriModalEditMal104(index) {
-        currentEditState = { type: 'mal104', index };
-        const item = mal104Log[index];
-        document.getElementById('modalTitle').innerText = "Modifica Malattia / Legge 104";
-        document.getElementById('modalBody').innerHTML = `
-            <div class="form-row">
-                <label>Tipo Assenza:</label>
-                <select id="editTipoMal104">
-                    <option value="MALATTIA" ${item.tipo==='MALATTIA'?'selected':''}>Malattia</option>
-                    <option value="LEGGE_104" ${item.tipo==='LEGGE_104'?'selected':''}>Legge 104</option>
-                </select>
-            </div>
-            <div class="form-row-group">
-                <div class="form-row"><label>Data Inizio:</label><input type="date" id="editDa" value="${item.da}"></div>
-                <div class="form-row"><label>Data Fine:</label><input type="date" id="editA" value="${item.a}"></div>
-            </div>
-            <div class="form-row"><label>Note / Certificato:</label><input type="text" id="editNote" value="${item.note || ''}"></div>
-        `;
-        document.getElementById('modalEdit').style.display = 'flex';
-    }
-
-    function apriModalEditTicket(index) {
-        currentEditState = { type: 'ticket', index };
-        const item = ticketLog[index];
-        document.getElementById('modalTitle').innerText = "Modifica Ticket Speso";
-        document.getElementById('modalBody').innerHTML = `
-            <div class="form-row"><label>Data Esatta:</label><input type="date" id="editData" value="${item.dataEsatta}"></div>
-            <div class="form-row"><label>Quantità:</label><input type="number" id="editQta" value="${item.quantita}" min="1"></div>
-            <div class="form-row"><label>Note:</label><input type="text" id="editNote" value="${item.note || ''}"></div>
-        `;
-        document.getElementById('modalEdit').style.display = 'flex';
+        modal.style.display = 'flex';
     }
 
     function chiudiModal() {
@@ -1260,47 +1129,179 @@
         if (index < 0) return;
 
         if (type === 'ferie') {
-            const tipo = document.getElementById('editTipo').value;
-            const da = document.getElementById('editDa').value;
-            const a = document.getElementById('editA').value;
-            const note = document.getElementById('editNote').value.trim();
-            const gg = calcolaGiorniLavorativi(da, a);
-            if (gg <= 0) { alert("Periodo non valido."); return; }
-            ferieLog[index] = { tipo, da, a, giorni: gg, ore: gg * 8, note };
+            const item = ferieLog[index];
+            item.tipo = document.getElementById('editTipoAssenza').value;
+            item.dataInizio = document.getElementById('editDataInizio').value;
+            item.dataFine = document.getElementById('editDataFine').value;
+            item.oreTotali = parseFloat(document.getElementById('editOreTotali').value) || 0;
+            item.note = document.getElementById('editNote').value;
+            item.giorniLavorativi = calcolaGiorniLavorativi(item.dataInizio, item.dataFine);
         } else if (type === 'mal104') {
-            const tipo = document.getElementById('editTipoMal104').value;
-            const da = document.getElementById('editDa').value;
-            const a = document.getElementById('editA').value;
-            const note = document.getElementById('editNote').value.trim();
-            const gg = calcolaGiorniLavorativi(da, a);
-            if (gg <= 0) { alert("Periodo non valido."); return; }
-            const d = new Date(da);
-            const meseRif = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-            mal104Log[index] = { tipo, da, a, giorni: gg, meseRif, note };
+            const item = mal104Log[index];
+            item.tipo = document.getElementById('editTipoAssenzaMal104').value;
+            item.dataInizio = document.getElementById('editDataInizio').value;
+            item.dataFine = document.getElementById('editDataFine').value;
+            item.note = document.getElementById('editNote').value;
+            item.giorniLavorativi = calcolaGiorniLavorativi(item.dataInizio, item.dataFine);
+            const d = new Date(item.dataInizio);
+            item.meseRif = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
         } else if (type === 'ticket') {
-            const dataEsatta = document.getElementById('editData').value;
-            const qta = parseInt(document.getElementById('editQta').value, 10);
-            const note = document.getElementById('editNote').value.trim();
-            if (!dataEsatta || isNaN(qta) || qta <= 0) { alert("Dati non validi."); return; }
-            const d = new Date(dataEsatta);
-            const meseRif = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-            ticketLog[index] = { dataEsatta, meseRif, quantita: qta, note };
+            const item = ticketLog[index];
+            item.dataEsatta = document.getElementById('editDataEsatta').value;
+            item.quantita = parseInt(document.getElementById('editQuantita').value, 10) || 0;
+            item.note = document.getElementById('editNote').value;
+            const d = new Date(item.dataEsatta);
+            item.meseRif = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
         }
 
+        chiudiModal();
         riconcolaTutto();
         salvaTuttiDati();
         render();
-        chiudiModal();
-        alert("Modifiche salvate con successo!");
+        alert("Elemento modificato con successo!");
     }
 
-    // Inizializzazione all'avvio
+    function render() {
+        popolaSelettoreMeseManuale();
+        aggiornaSelettoriMese();
+
+        let totFerieAcc = 0;
+        let totRolAcc = 0;
+        let totExFestAcc = 0;
+        let totTicketMaturatiAcc = 0;
+        let totTicketSpesiAcc = 0;
+        let totMalattiaAcc = 0;
+        let tot104Acc = 0;
+
+        let accumuloFerie = 0;
+        let accumuloRol = 0;
+        let accumuloExFest = 0;
+        let accumuloTicket = 0;
+
+        const tbodyCorpo = document.getElementById('tabellaCorpo');
+        tbodyCorpo.innerHTML = '';
+
+        dati.forEach(item => {
+            accumuloFerie += (item.ferieMaturate - item.feriePrese);
+            accumuloRol += (item.rolMaturati - item.rolPresi);
+            accumuloExFest += (item.exFestMaturate - item.exFestPrese);
+            accumuloTicket += (item.ticketMaturati - item.ticketSpesi);
+
+            totFerieAcc += (item.ferieMaturate - item.feriePrese);
+            totRolAcc += (item.rolMaturati - item.rolPresi);
+            totExFestAcc += (item.exFestMaturate - item.exFestPrese);
+            totTicketMaturatiAcc += item.ticketMaturati;
+            totTicketSpesiAcc += item.ticketSpesi;
+            totMalattiaAcc += item.malattiePrese;
+            tot104Acc += item.legge104Prese;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${formattaMeseAnno(item.mese)}</strong></td>
+                <td><input type="number" step="0.01" class="table-input" value="${item.ferieMaturate}"></td>
+                <td>${item.feriePrese.toFixed(2)}h</td>
+                <td class="highlight">${accumuloFerie.toFixed(2)}h</td>
+                <td><input type="number" step="0.01" class="table-input" value="${item.rolMaturati}"></td>
+                <td>${item.rolPresi.toFixed(2)}h</td>
+                <td class="highlight">${accumuloRol.toFixed(2)}h</td>
+                <td><input type="number" step="0.01" class="table-input" value="${item.exFestMaturate}"></td>
+                <td>${item.exFestPrese.toFixed(2)}h</td>
+                <td class="highlight">${accumuloExFest.toFixed(2)}h</td>
+                <td><input type="number" class="table-input" value="${item.ticketMaturati}"></td>
+                <td>${item.ticketSpesi}</td>
+                <td class="highlight">${accumuloTicket}</td>
+                <td>${item.malattiePrese}gg</td>
+                <td>${item.malattiePrese}gg</td>
+                <td>${item.legge104Prese}gg</td>
+                <td>${item.legge104Prese}gg</td>
+                <td><button class="btn-del" onclick="eliminaMese('${item.mese}')">🗑️</button></td>
+            `;
+            tbodyCorpo.appendChild(tr);
+        });
+
+        // Tabella Registro Ferie
+        const tbodyFerie = document.getElementById('tabellaFerieCorpo');
+        tbodyFerie.innerHTML = '';
+        ferieLog.forEach((f, idx) => {
+            const badgeClass = f.tipo === 'ROL' ? 'badge-malattia' : (f.tipo === 'EX_FEST' ? 'badge-104' : '');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><span class="badge ${badgeClass}">${f.tipo}</span></td>
+                <td>${f.dataInizio} / ${f.dataFine}</td>
+                <td>${f.giorniLavorativi} gg</td>
+                <td><strong>${f.oreTotali.toFixed(2)} h</strong></td>
+                <td>${f.note || '-'}</td>
+                <td>
+                    <button class="btn-edit" onclick="apriModaleEdit('ferie', ${idx})">✏️</button>
+                    <button class="btn-del" onclick="eliminaFerieLog(${idx})">🗑️</button>
+                </td>
+            `;
+            tbodyFerie.appendChild(tr);
+        });
+
+        // Tabella Malattia e 104
+        const tbodyMal104 = document.getElementById('tabellaMal104Corpo');
+        tbodyMal104.innerHTML = '';
+        mal104Log.forEach((m, idx) => {
+            const badgeClass = m.tipo === 'MALATTIA' ? 'badge-malattia' : 'badge-104';
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><span class="badge ${badgeClass}">${m.tipo}</span></td>
+                <td>${m.dataInizio} / ${m.dataFine}</td>
+                <td>${m.giorniLavorativi} gg</td>
+                <td>${formattaMeseAnno(m.meseRif)}</td>
+                <td>${m.note || '-'}</td>
+                <td>
+                    <button class="btn-edit" onclick="apriModaleEdit('mal104', ${idx})">✏️</button>
+                    <button class="btn-del" onclick="eliminaMal104Log(${idx})">🗑️</button>
+                </td>
+            `;
+            tbodyMal104.appendChild(tr);
+        });
+
+        // Tabella Ticket Spesi
+        const tbodyTicket = document.getElementById('tabellaTicketCorpo');
+        tbodyTicket.innerHTML = '';
+        ticketLog.forEach((t, idx) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${t.dataEsatta}</td>
+                <td>${formattaMeseAnno(t.meseRif)}</td>
+                <td><strong>${t.quantita}</strong></td>
+                <td>${t.note || '-'}</td>
+                <td>
+                    <button class="btn-edit" onclick="apriModaleEdit('ticket', ${idx})">✏️</button>
+                    <button class="btn-del" onclick="eliminaTicketLog(${idx})">🗑️</button>
+                </td>
+            `;
+            tbodyTicket.appendChild(tr);
+        });
+
+        // Aggiorna schede di riepilogo in alto
+        document.getElementById('sumFerie').innerText = `${totFerieAcc.toFixed(2)} h`;
+        document.getElementById('sumRol').innerText = `${totRolAcc.toFixed(2)} h`;
+        document.getElementById('sumExFest').innerText = `${totExFestAcc.toFixed(2)} h`;
+        document.getElementById('sumTicketMaturati').innerText = totTicketMaturatiAcc;
+        document.getElementById('sumTicket').innerText = totTicketMaturatiAcc - totTicketSpesiAcc;
+        document.getElementById('sumMalattia').innerText = `${totMalattiaAcc} gg`;
+        document.getElementById('sum104').innerText = `${tot104Acc} gg`;
+    }
+
+    function eliminaMese(meseStr) {
+        if (confirm(`Vuoi rimuovere il mese ${formattaMeseAnno(meseStr)}?`)) {
+            dati = dati.filter(d => d.mese !== meseStr);
+            riconcolaTutto();
+            salvaTuttiDati();
+            render();
+        }
+    }
+
+    // Inizializzazione all'avvio della pagina
     window.onload = function() {
         caricaDatiIniziali();
         sincronizzaAccreditiMensiliAutomatici();
-        popolaSelettoreMeseManuale();
         impostaDataOggiInput();
-        aggiornaSelettoriMese();
+        riconcolaTutto();
         render();
     };
 </script>
