@@ -81,14 +81,6 @@
             gap: 6px;
         }
 
-        .grid-forms {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        /* Card usate come container standard o dentro i details */
         .card {
             background: var(--card-bg);
             padding: 16px;
@@ -96,17 +88,6 @@
             border: 1px solid var(--border);
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
             min-width: 0;
-        }
-
-        .card h3 {
-            margin-top: 0;
-            font-size: 1.05rem;
-            color: var(--text-heading);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .form-row {
@@ -201,60 +182,37 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 800px;
+            min-width: 850px;
             font-size: 0.85rem;
         }
 
-        th, td { padding: 8px 6px; border: 1px solid var(--border); text-align: center; }
+        th, td { padding: 6px 4px; border: 1px solid var(--border); text-align: center; }
         th { background-color: #334155; color: #ffffff; }
 
-        input.table-input {
-            width: 60px;
+        /* Stili per campi editabili nelle tabelle */
+        input.table-input, select.table-input {
+            width: 100%;
+            min-width: 60px;
             text-align: center;
-            padding: 6px 2px;
+            padding: 5px 4px;
             border: 1px solid var(--border);
             background-color: var(--input-bg);
             color: var(--text);
             border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        input.table-input-text {
+            text-align: left;
+            min-width: 100px;
+        }
+
+        input[type="date"].table-input {
+            min-width: 115px;
         }
 
         .highlight { font-weight: bold; background-color: var(--highlight-bg); color: var(--highlight-text); }
-        .badge { padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
-        .badge-malattia { background-color: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
-        .badge-104 { background-color: rgba(139, 92, 246, 0.2); color: var(--purple); border: 1px solid var(--purple); }
-
-        .btn-edit { background: var(--warning); color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; margin-right: 4px; }
         .btn-del { background: var(--danger); color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--modal-overlay);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 16px;
-        }
-        .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
-        }
-        .modal-header h3 { margin: 0; color: var(--text-heading); font-size: 1.1rem; }
-        .modal-close { background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; width: auto; padding: 0; }
     </style>
 </head>
 <body>
@@ -413,17 +371,18 @@
         </div>
     </details>
 
-    <!-- REGISTRI DETTAGLIATI (CHIUSI ALL'AVVIO) -->
+    <!-- REGISTRI DETTAGLIATI CON CAMPI EDITABILI INLINE -->
 
     <!-- Registro Ferie -->
     <details>
-        <summary>🏖️ Registro Ferie e Permessi Utilizzati (Editabile)</summary>
+        <summary>🏖️ Registro Ferie e Permessi Utilizzati (Editabile in tabella)</summary>
         <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
                         <th>Tipo</th>
-                        <th>Periodo (Da / A)</th>
+                        <th>Data Inizio</th>
+                        <th>Data Fine</th>
                         <th>Gg Lavorativi</th>
                         <th>Ore Totali</th>
                         <th>Note</th>
@@ -437,13 +396,14 @@
 
     <!-- Registro Malattia e Legge 104 Unificato -->
     <details>
-        <summary>🏥 Registro Malattie e Legge 104 (Editabile)</summary>
+        <summary>🏥 Registro Malattie e Legge 104 (Editabile in tabella)</summary>
         <div class="table-responsive">
             <table>
                 <thead>
                     <tr>
                         <th>Tipo</th>
-                        <th>Periodo (Da / A)</th>
+                        <th>Data Inizio</th>
+                        <th>Data Fine</th>
                         <th>Gg Lavorativi</th>
                         <th>Mese Rif.</th>
                         <th>Note / Certificato</th>
@@ -457,7 +417,7 @@
 
     <!-- Registro Ticket Spesi -->
     <details>
-        <summary>🎫 Registro Ticket Spesi per Giorno (Editabile)</summary>
+        <summary>🎫 Registro Ticket Spesi per Giorno (Editabile in tabella)</summary>
         <div class="table-responsive">
             <table>
                 <thead>
@@ -477,7 +437,7 @@
     <!-- Prospetto Mensile Editabile -->
     <details>
         <summary>⚙️ Prospetto Mensile Riconciliato (Salvataggio in locale)</summary>
-        <p style="font-size: 0.8rem; color: var(--primary); margin-top: 8px;">Puoi modificare direttamente le ore maturate o i ticket di ogni mese nelle caselle sottostanti e cliccare sul pulsante verde per ricalcolare e salvare tutto nel browser.</p>
+        <p style="font-size: 0.8rem; color: var(--primary); margin-top: 8px;">Puoi modificare direttamente tutti i valori delle caselle sottostanti e cliccare sul pulsante verde per ricalcolare e salvare tutto nel browser.</p>
         
         <div class="table-responsive">
             <table>
@@ -511,21 +471,6 @@
     </details>
 </div>
 
-<!-- MODAL EDIT -->
-<div id="modalEdit" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 id="modalTitle">Modifica Elemento</h3>
-            <button class="modal-close" onclick="chiudiModal()">&times;</button>
-        </div>
-        <div id="modalBody"></div>
-        <div style="display: flex; gap: 10px; margin-top: 16px;">
-            <button style="background-color: var(--success);" onclick="salvaModalEdit()">💾 Salva Modifiche</button>
-            <button style="background-color: var(--danger);" onclick="chiudiModal()">Annulla</button>
-        </div>
-    </div>
-</div>
-
 <script>
     const MESE_INIZIO_DEFAULT = '2026-07';
 
@@ -533,7 +478,6 @@
     let ferieLog = [];
     let mal104Log = [];
     let ticketLog = [];
-    let currentEditState = { type: '', index: -1 };
 
     const NOMI_MESI = [
         'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
@@ -659,7 +603,6 @@
         const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        
         const oraStr = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19);
         
         a.href = url;
@@ -951,6 +894,7 @@
 
         ferieLog.forEach(f => {
             const d = new Date(f.dataInizio);
+            if (isNaN(d)) return;
             const meseStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
             let row = dati.find(d => d.mese === meseStr);
             if (!row) {
@@ -969,12 +913,13 @@
                 };
                 dati.push(row);
             }
-            if (f.tipo === 'FERIE') row.feriePrese += f.oreTotali;
-            if (f.tipo === 'ROL') row.rolPresi += f.oreTotali;
-            if (f.tipo === 'EX_FEST') row.exFestPrese += f.oreTotali;
+            if (f.tipo === 'FERIE') row.feriePrese += (parseFloat(f.oreTotali) || 0);
+            if (f.tipo === 'ROL') row.rolPresi += (parseFloat(f.oreTotali) || 0);
+            if (f.tipo === 'EX_FEST') row.exFestPrese += (parseFloat(f.oreTotali) || 0);
         });
 
         mal104Log.forEach(m => {
+            if (!m.meseRif) return;
             let row = dati.find(d => d.mese === m.meseRif);
             if (!row) {
                 row = {
@@ -992,11 +937,12 @@
                 };
                 dati.push(row);
             }
-            if (m.tipo === 'MALATTIA') row.malattiePrese += m.giorniLavorativi;
-            if (m.tipo === 'LEGGE_104') row.legge104Prese += m.giorniLavorativi;
+            if (m.tipo === 'MALATTIA') row.malattiePrese += (parseInt(m.giorniLavorativi, 10) || 0);
+            if (m.tipo === 'LEGGE_104') row.legge104Prese += (parseInt(m.giorniLavorativi, 10) || 0);
         });
 
         ticketLog.forEach(t => {
+            if (!t.meseRif) return;
             let row = dati.find(d => d.mese === t.meseRif);
             if (!row) {
                 row = {
@@ -1014,25 +960,106 @@
                 };
                 dati.push(row);
             }
-            row.ticketSpesi += t.quantita;
+            row.ticketSpesi += (parseInt(t.quantita, 10) || 0);
         });
 
         dati.sort((a, b) => a.mese.localeCompare(b.mese));
     }
 
+    // MODIFICA INLINE CAMPI REGISTRO FERIE
+    function aggiornaFerieLogCampo(index, field, value) {
+        if (!ferieLog[index]) return;
+
+        if (field === 'oreTotali') {
+            ferieLog[index].oreTotali = parseFloat(value) || 0;
+        } else if (field === 'giorniLavorativi') {
+            ferieLog[index].giorniLavorativi = parseInt(value, 10) || 0;
+        } else {
+            ferieLog[index][field] = value;
+        }
+
+        if (field === 'dataInizio' || field === 'dataFine') {
+            const gg = calcolaGiorniLavorativi(ferieLog[index].dataInizio, ferieLog[index].dataFine);
+            if (gg > 0) {
+                ferieLog[index].giorniLavorativi = gg;
+                ferieLog[index].oreTotali = gg * 8;
+            }
+        }
+
+        riconcolaTutto();
+        salvaTuttiDati();
+        render();
+    }
+
+    // MODIFICA INLINE CAMPI REGISTRO MALATTIA / 104
+    function aggiornaMal104LogCampo(index, field, value) {
+        if (!mal104Log[index]) return;
+
+        if (field === 'giorniLavorativi') {
+            mal104Log[index].giorniLavorativi = parseInt(value, 10) || 0;
+        } else {
+            mal104Log[index][field] = value;
+        }
+
+        if (field === 'dataInizio' || field === 'dataFine') {
+            const gg = calcolaGiorniLavorativi(mal104Log[index].dataInizio, mal104Log[index].dataFine);
+            if (gg > 0) {
+                mal104Log[index].giorniLavorativi = gg;
+            }
+            if (field === 'dataInizio' && mal104Log[index].dataInizio) {
+                const d = new Date(mal104Log[index].dataInizio);
+                if (!isNaN(d)) {
+                    mal104Log[index].meseRif = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+                }
+            }
+        }
+
+        riconcolaTutto();
+        salvaTuttiDati();
+        render();
+    }
+
+    // MODIFICA INLINE CAMPI REGISTRO TICKET
+    function aggiornaTicketLogCampo(index, field, value) {
+        if (!ticketLog[index]) return;
+
+        if (field === 'quantita') {
+            ticketLog[index].quantita = parseInt(value, 10) || 0;
+        } else {
+            ticketLog[index][field] = value;
+        }
+
+        if (field === 'dataEsatta' && ticketLog[index].dataEsatta) {
+            const d = new Date(ticketLog[index].dataEsatta);
+            if (!isNaN(d)) {
+                ticketLog[index].meseRif = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+            }
+        }
+
+        riconcolaTutto();
+        salvaTuttiDati();
+        render();
+    }
+
+    // SALVATAGGIO TABELLA MENSILE PROSPETTO
     function confermaEAggiornaModifiche() {
         const rows = document.querySelectorAll('#tabellaCorpo tr');
         rows.forEach((tr, index) => {
             const inputs = tr.querySelectorAll('input');
-            if (inputs.length >= 4) {
+            if (inputs.length >= 10) {
                 dati[index].ferieMaturate = parseFloat(inputs[0].value) || 0;
-                dati[index].rolMaturati = parseFloat(inputs[1].value) || 0;
-                dati[index].exFestMaturate = parseFloat(inputs[2].value) || 0;
-                dati[index].ticketMaturati = parseInt(inputs[3].value, 10) || 0;
+                dati[index].feriePrese = parseFloat(inputs[1].value) || 0;
+                dati[index].rolMaturati = parseFloat(inputs[2].value) || 0;
+                dati[index].rolPresi = parseFloat(inputs[3].value) || 0;
+                dati[index].exFestMaturate = parseFloat(inputs[4].value) || 0;
+                dati[index].exFestPrese = parseFloat(inputs[5].value) || 0;
+                dati[index].ticketMaturati = parseInt(inputs[6].value, 10) || 0;
+                dati[index].ticketSpesi = parseInt(inputs[7].value, 10) || 0;
+                dati[index].malattiePrese = parseInt(inputs[8].value, 10) || 0;
+                dati[index].legge104Prese = parseInt(inputs[9].value, 10) || 0;
             }
         });
 
-        riconcolaTutto();
         salvaTuttiDati();
         render();
         alert("Modifiche mensili salvate e totali ricalcolati con successo!");
@@ -1065,102 +1092,6 @@
         }
     }
 
-    function apriModaleEdit(type, index) {
-        currentEditState = { type, index };
-        const modal = document.getElementById('modalEdit');
-        const title = document.getElementById('modalTitle');
-        const body = document.getElementById('modalBody');
-
-        if (type === 'ferie') {
-            title.innerText = "Modifica Ferie / Permesso";
-            const item = ferieLog[index];
-            body.innerHTML = `
-                <div class="form-row">
-                    <label>Tipo Assenza:</label>
-                    <select id="editTipoAssenza">
-                        <option value="FERIE" ${item.tipo==='FERIE'?'selected':''}>Ferie</option>
-                        <option value="ROL" ${item.tipo==='ROL'?'selected':''}>ROL</option>
-                        <option value="EX_FEST" ${item.tipo==='EX_FEST'?'selected':''}>Ex Festività</option>
-                    </select>
-                </div>
-                <div class="form-row-group">
-                    <div class="form-row"><label>Data Inizio:</label><input type="date" id="editDataInizio" value="${item.dataInizio}"></div>
-                    <div class="form-row"><label>Data Fine:</label><input type="date" id="editDataFine" value="${item.dataFine}"></div>
-                </div>
-                <div class="form-row"><label>Ore Totali:</label><input type="number" step="0.5" id="editOreTotali" value="${item.oreTotali}"></div>
-                <div class="form-row"><label>Note:</label><input type="text" id="editNote" value="${item.note || ''}"></div>
-            `;
-        } else if (type === 'mal104') {
-            title.innerText = "Modifica Malattia / Legge 104";
-            const item = mal104Log[index];
-            body.innerHTML = `
-                <div class="form-row">
-                    <label>Tipo Assenza:</label>
-                    <select id="editTipoAssenzaMal104">
-                        <option value="MALATTIA" ${item.tipo==='MALATTIA'?'selected':''}>Malattia</option>
-                        <option value="LEGGE_104" ${item.tipo==='LEGGE_104'?'selected':''}>Legge 104</option>
-                    </select>
-                </div>
-                <div class="form-row-group">
-                    <div class="form-row"><label>Data Inizio:</label><input type="date" id="editDataInizio" value="${item.dataInizio}"></div>
-                    <div class="form-row"><label>Data Fine:</label><input type="date" id="editDataFine" value="${item.dataFine}"></div>
-                </div>
-                <div class="form-row"><label>Note:</label><input type="text" id="editNote" value="${item.note || ''}"></div>
-            `;
-        } else if (type === 'ticket') {
-            title.innerText = "Modifica Ticket Speso";
-            const item = ticketLog[index];
-            body.innerHTML = `
-                <div class="form-row"><label>Data Esatta:</label><input type="date" id="editDataEsatta" value="${item.dataEsatta}"></div>
-                <div class="form-row"><label>Quantità:</label><input type="number" id="editQuantita" value="${item.quantita}"></div>
-                <div class="form-row"><label>Note:</label><input type="text" id="editNote" value="${item.note || ''}"></div>
-            `;
-        }
-
-        modal.style.display = 'flex';
-    }
-
-    function chiudiModal() {
-        document.getElementById('modalEdit').style.display = 'none';
-    }
-
-    function salvaModalEdit() {
-        const { type, index } = currentEditState;
-        if (index < 0) return;
-
-        if (type === 'ferie') {
-            const item = ferieLog[index];
-            item.tipo = document.getElementById('editTipoAssenza').value;
-            item.dataInizio = document.getElementById('editDataInizio').value;
-            item.dataFine = document.getElementById('editDataFine').value;
-            item.oreTotali = parseFloat(document.getElementById('editOreTotali').value) || 0;
-            item.note = document.getElementById('editNote').value;
-            item.giorniLavorativi = calcolaGiorniLavorativi(item.dataInizio, item.dataFine);
-        } else if (type === 'mal104') {
-            const item = mal104Log[index];
-            item.tipo = document.getElementById('editTipoAssenzaMal104').value;
-            item.dataInizio = document.getElementById('editDataInizio').value;
-            item.dataFine = document.getElementById('editDataFine').value;
-            item.note = document.getElementById('editNote').value;
-            item.giorniLavorativi = calcolaGiorniLavorativi(item.dataInizio, item.dataFine);
-            const d = new Date(item.dataInizio);
-            item.meseRif = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-        } else if (type === 'ticket') {
-            const item = ticketLog[index];
-            item.dataEsatta = document.getElementById('editDataEsatta').value;
-            item.quantita = parseInt(document.getElementById('editQuantita').value, 10) || 0;
-            item.note = document.getElementById('editNote').value;
-            const d = new Date(item.dataEsatta);
-            item.meseRif = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
-        }
-
-        chiudiModal();
-        riconcolaTutto();
-        salvaTuttiDati();
-        render();
-        alert("Elemento modificato con successo!");
-    }
-
     function render() {
         popolaSelettoreMeseManuale();
         aggiornaSelettoriMese();
@@ -1178,6 +1109,7 @@
         let accumuloExFest = 0;
         let accumuloTicket = 0;
 
+        // Render Prospetto Mensile
         const tbodyCorpo = document.getElementById('tabellaCorpo');
         tbodyCorpo.innerHTML = '';
 
@@ -1199,79 +1131,99 @@
             tr.innerHTML = `
                 <td><strong>${formattaMeseAnno(item.mese)}</strong></td>
                 <td><input type="number" step="0.01" class="table-input" value="${item.ferieMaturate}"></td>
-                <td>${item.feriePrese.toFixed(2)}h</td>
+                <td><input type="number" step="0.01" class="table-input" value="${item.feriePrese}"></td>
                 <td class="highlight">${accumuloFerie.toFixed(2)}h</td>
                 <td><input type="number" step="0.01" class="table-input" value="${item.rolMaturati}"></td>
-                <td>${item.rolPresi.toFixed(2)}h</td>
+                <td><input type="number" step="0.01" class="table-input" value="${item.rolPresi}"></td>
                 <td class="highlight">${accumuloRol.toFixed(2)}h</td>
                 <td><input type="number" step="0.01" class="table-input" value="${item.exFestMaturate}"></td>
-                <td>${item.exFestPrese.toFixed(2)}h</td>
+                <td><input type="number" step="0.01" class="table-input" value="${item.exFestPrese}"></td>
                 <td class="highlight">${accumuloExFest.toFixed(2)}h</td>
                 <td><input type="number" class="table-input" value="${item.ticketMaturati}"></td>
-                <td>${item.ticketSpesi}</td>
+                <td><input type="number" class="table-input" value="${item.ticketSpesi}"></td>
                 <td class="highlight">${accumuloTicket}</td>
-                <td>${item.malattiePrese}gg</td>
-                <td>${item.malattiePrese}gg</td>
-                <td>${item.legge104Prese}gg</td>
-                <td>${item.legge104Prese}gg</td>
+                <td><input type="number" class="table-input" value="${item.malattiePrese}"></td>
+                <td>${totMalattiaAcc}gg</td>
+                <td><input type="number" class="table-input" value="${item.legge104Prese}"></td>
+                <td>${tot104Acc}gg</td>
                 <td><button class="btn-del" onclick="eliminaMese('${item.mese}')">🗑️</button></td>
             `;
             tbodyCorpo.appendChild(tr);
         });
 
-        // Tabella Registro Ferie
+        // Render Registro Ferie con campi editabili
         const tbodyFerie = document.getElementById('tabellaFerieCorpo');
         tbodyFerie.innerHTML = '';
         ferieLog.forEach((f, idx) => {
-            const badgeClass = f.tipo === 'ROL' ? 'badge-malattia' : (f.tipo === 'EX_FEST' ? 'badge-104' : '');
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><span class="badge ${badgeClass}">${f.tipo}</span></td>
-                <td>${f.dataInizio} / ${f.dataFine}</td>
-                <td>${f.giorniLavorativi} gg</td>
-                <td><strong>${f.oreTotali.toFixed(2)} h</strong></td>
-                <td>${f.note || '-'}</td>
                 <td>
-                    <button class="btn-edit" onclick="apriModaleEdit('ferie', ${idx})">✏️</button>
-                    <button class="btn-del" onclick="eliminaFerieLog(${idx})">🗑️</button>
+                    <select class="table-input" onchange="aggiornaFerieLogCampo(${idx}, 'tipo', this.value)">
+                        <option value="FERIE" ${f.tipo==='FERIE'?'selected':''}>Ferie</option>
+                        <option value="ROL" ${f.tipo==='ROL'?'selected':''}>ROL</option>
+                        <option value="EX_FEST" ${f.tipo==='EX_FEST'?'selected':''}>Ex Fest</option>
+                    </select>
+                </td>
+                <td><input type="date" class="table-input" value="${f.dataInizio}" onchange="aggiornaFerieLogCampo(${idx}, 'dataInizio', this.value)"></td>
+                <td><input type="date" class="table-input" value="${f.dataFine}" onchange="aggiornaFerieLogCampo(${idx}, 'dataFine', this.value)"></td>
+                <td><input type="number" class="table-input" value="${f.giorniLavorativi}" onchange="aggiornaFerieLogCampo(${idx}, 'giorniLavorativi', this.value)"></td>
+                <td><input type="number" step="0.5" class="table-input" value="${f.oreTotali}" onchange="aggiornaFerieLogCampo(${idx}, 'oreTotali', this.value)"></td>
+                <td><input type="text" class="table-input table-input-text" value="${f.note || ''}" onchange="aggiornaFerieLogCampo(${idx}, 'note', this.value)"></td>
+                <td>
+                    <button class="btn-del" onclick="eliminaFerieLog(${idx})" title="Elimina">🗑️</button>
                 </td>
             `;
             tbodyFerie.appendChild(tr);
         });
 
-        // Tabella Malattia e 104
+        // Render Registro Malattia e 104 con campi editabili
         const tbodyMal104 = document.getElementById('tabellaMal104Corpo');
         tbodyMal104.innerHTML = '';
         mal104Log.forEach((m, idx) => {
-            const badgeClass = m.tipo === 'MALATTIA' ? 'badge-malattia' : 'badge-104';
+            let opzioniMesi = dati.map(d => `<option value="${d.mese}" ${d.mese === m.meseRif ? 'selected' : ''}>${formattaMeseAnno(d.mese)}</option>`).join('');
+
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><span class="badge ${badgeClass}">${m.tipo}</span></td>
-                <td>${m.dataInizio} / ${m.dataFine}</td>
-                <td>${m.giorniLavorativi} gg</td>
-                <td>${formattaMeseAnno(m.meseRif)}</td>
-                <td>${m.note || '-'}</td>
                 <td>
-                    <button class="btn-edit" onclick="apriModaleEdit('mal104', ${idx})">✏️</button>
-                    <button class="btn-del" onclick="eliminaMal104Log(${idx})">🗑️</button>
+                    <select class="table-input" onchange="aggiornaMal104LogCampo(${idx}, 'tipo', this.value)">
+                        <option value="MALATTIA" ${m.tipo==='MALATTIA'?'selected':''}>Malattia</option>
+                        <option value="LEGGE_104" ${m.tipo==='LEGGE_104'?'selected':''}>Legge 104</option>
+                    </select>
+                </td>
+                <td><input type="date" class="table-input" value="${m.dataInizio}" onchange="aggiornaMal104LogCampo(${idx}, 'dataInizio', this.value)"></td>
+                <td><input type="date" class="table-input" value="${m.dataFine}" onchange="aggiornaMal104LogCampo(${idx}, 'dataFine', this.value)"></td>
+                <td><input type="number" class="table-input" value="${m.giorniLavorativi}" onchange="aggiornaMal104LogCampo(${idx}, 'giorniLavorativi', this.value)"></td>
+                <td>
+                    <select class="table-input" onchange="aggiornaMal104LogCampo(${idx}, 'meseRif', this.value)">
+                        ${opzioniMesi}
+                    </select>
+                </td>
+                <td><input type="text" class="table-input table-input-text" value="${m.note || ''}" onchange="aggiornaMal104LogCampo(${idx}, 'note', this.value)"></td>
+                <td>
+                    <button class="btn-del" onclick="eliminaMal104Log(${idx})" title="Elimina">🗑️</button>
                 </td>
             `;
             tbodyMal104.appendChild(tr);
         });
 
-        // Tabella Ticket Spesi
+        // Render Registro Ticket Spesi con campi editabili
         const tbodyTicket = document.getElementById('tabellaTicketCorpo');
         tbodyTicket.innerHTML = '';
         ticketLog.forEach((t, idx) => {
+            let opzioniMesiTicket = dati.map(d => `<option value="${d.mese}" ${d.mese === t.meseRif ? 'selected' : ''}>${formattaMeseAnno(d.mese)}</option>`).join('');
+
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${t.dataEsatta}</td>
-                <td>${formattaMeseAnno(t.meseRif)}</td>
-                <td><strong>${t.quantita}</strong></td>
-                <td>${t.note || '-'}</td>
+                <td><input type="date" class="table-input" value="${t.dataEsatta}" onchange="aggiornaTicketLogCampo(${idx}, 'dataEsatta', this.value)"></td>
                 <td>
-                    <button class="btn-edit" onclick="apriModaleEdit('ticket', ${idx})">✏️</button>
-                    <button class="btn-del" onclick="eliminaTicketLog(${idx})">🗑️</button>
+                    <select class="table-input" onchange="aggiornaTicketLogCampo(${idx}, 'meseRif', this.value)">
+                        ${opzioniMesiTicket}
+                    </select>
+                </td>
+                <td><input type="number" min="1" class="table-input" value="${t.quantita}" onchange="aggiornaTicketLogCampo(${idx}, 'quantita', this.value)"></td>
+                <td><input type="text" class="table-input table-input-text" value="${t.note || ''}" onchange="aggiornaTicketLogCampo(${idx}, 'note', this.value)"></td>
+                <td>
+                    <button class="btn-del" onclick="eliminaTicketLog(${idx})" title="Elimina">🗑️</button>
                 </td>
             `;
             tbodyTicket.appendChild(tr);
