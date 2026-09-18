@@ -3,143 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestione Presenze, Ferie e Riconciliazione</title>
+  <title>Gestione Presenze e Riconciliazione</title>
   <style>
     :root {
-      --bg-color: #f4f6f9;
+      --bg: #f8f9fa;
       --card-bg: #ffffff;
-      --text-color: #212529;
-      --border-color: #dee2e6;
+      --text: #212529;
+      --border: #dee2e6;
       --primary: #0d6efd;
-      --primary-hover: #0b5ed7;
       --danger: #dc3545;
-      --editable-bg: #fffde7;
-      --editable-focus: #fff;
-      --table-header: #e9ecef;
+      --header-bg: #e9ecef;
+      --edit-bg: #fffde7;
     }
 
     [data-theme="dark"] {
-      --bg-color: #121212;
+      --bg: #121212;
       --card-bg: #1e1e1e;
-      --text-color: #e0e0e0;
-      --border-color: #333333;
+      --text: #e0e0e0;
+      --border: #333333;
       --primary: #3d8bfd;
-      --primary-hover: #1d72f3;
       --danger: #ea868f;
-      --editable-bg: #2a2a18;
-      --editable-focus: #2c2c2c;
-      --table-header: #2d2d2d;
+      --header-bg: #2d2d2d;
+      --edit-bg: #2a2a1a;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
       margin: 0;
       padding: 20px;
-      transition: background-color 0.3s, color 0.3s;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    h2, h3 { margin-top: 0; }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-      align-items: end;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
+    .container { max-width: 1100px; margin: 0 auto; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; align-items: end; }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
     label { font-size: 0.85rem; font-weight: 600; }
+    input, select, button { padding: 8px; border: 1px solid var(--border); border-radius: 4px; background: var(--card-bg); color: var(--text); }
+    button { cursor: pointer; background: var(--primary); color: white; border: none; font-weight: 600; }
+    .btn-danger { background: var(--danger); }
+    .btn-secondary { background: #6c757d; }
+    
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; font-size: 0.9rem; }
+    th { background: var(--header-bg); }
 
-    input, select, button {
-      padding: 8px 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      background-color: var(--card-bg);
-      color: var(--text-color);
-      font-size: 0.9rem;
-    }
-
-    button {
-      cursor: pointer;
-      background-color: var(--primary);
-      color: #fff;
-      border: none;
-      font-weight: 600;
-      transition: background-color 0.2s;
-    }
-
-    button:hover { background-color: var(--primary-hover); }
-
-    .btn-danger { background-color: var(--danger); }
-    .btn-secondary { background-color: #6c757d; }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-
-    th, td {
-      border: 1px solid var(--border-color);
-      padding: 10px;
-      text-align: left;
-      font-size: 0.9rem;
-    }
-
-    th { background-color: var(--table-header); }
-
-    /* Stile per i campi editabili */
+    /* Celle registro editabili */
     td[contenteditable="true"] {
-      background-color: var(--editable-bg);
+      background-color: var(--edit-bg);
       cursor: pointer;
-      transition: background-color 0.2s, outline 0.2s;
     }
-
     td[contenteditable="true"]:focus {
       outline: 2px solid var(--primary);
-      background-color: var(--editable-focus);
-    }
-
-    .hint {
-      font-size: 0.8rem;
-      opacity: 0.8;
-      margin-top: -5px;
-      margin-bottom: 10px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
     }
   </style>
 </head>
@@ -147,19 +64,19 @@
 
 <div class="container">
   <div class="header">
-    <h2>Registro & Riconciliazione Presenze</h2>
-    <div class="actions">
-      <button onclick="toggleTheme()" class="btn-secondary">Inverti Tema</button>
-      <button onclick="esportaDati()" class="btn-secondary">Esporta JSON</button>
-      <button onclick="document.getElementById('importFile').click()" class="btn-secondary">Importa JSON</button>
-      <input type="file" id="importFile" style="display:none" onchange="importaDati(event)">
+    <h2>Tracciamento & Riconciliazione Presenze</h2>
+    <div>
+      <button onclick="toggleTema()" class="btn-secondary">Tema Dark/Light</button>
+      <button onclick="esportaBackup()" class="btn-secondary">Esporta Backup</button>
+      <button onclick="document.getElementById('fileImport').click()" class="btn-secondary">Ripristina Backup</button>
+      <input type="file" id="fileImport" style="display:none" onchange="ripristinaBackup(event)">
     </div>
   </div>
 
   <!-- Form Inserimento -->
   <div class="card">
     <h3>Nuova Registrazione</h3>
-    <form id="presenzaForm" onsubmit="aggiungiVoce(event)" class="form-grid">
+    <form id="formPresenze" onsubmit="aggiungiVoce(event)" class="form-grid">
       <div class="form-group">
         <label>Data Inizio</label>
         <input type="date" id="dataInizio" required>
@@ -180,21 +97,20 @@
         </select>
       </div>
       <div class="form-group">
-        <label>Quantità/Ore</label>
-        <input type="number" step="0.5" id="quantita" placeholder="es. 8" required>
+        <label>Quantità / Ore</label>
+        <input type="number" step="0.5" id="quantita" required placeholder="es. 8">
       </div>
       <div class="form-group">
         <label>Note</label>
         <input type="text" id="note" placeholder="Opzionale">
       </div>
-      <button type="submit">Aggiungi</button>
+      <button type="submit">Inserisci</button>
     </form>
   </div>
 
-  <!-- Tabella Registro Editabile -->
+  <!-- Registro Dettaglio con celle Editabili -->
   <div class="card">
     <h3>Registro Dettagliato</h3>
-    <p class="hint">💡 <strong>Campi editabili:</strong> Clicca direttamente sulle celle evidenziate in giallo per modificare i valori. Le modifiche si salvano automaticamente.</p>
     <table>
       <thead>
         <tr>
@@ -202,12 +118,12 @@
           <th>Data Fine</th>
           <th>Causale</th>
           <th>Q.tà / Ore</th>
-          <th>Gg. Lavorativi Effettivi</th>
+          <th>Gg Lavorativi</th>
           <th>Note</th>
-          <th>Azioni</th>
+          <th>Azione</th>
         </tr>
       </thead>
-      <tbody id="registro-body"></tbody>
+      <tbody id="tb-registro"></tbody>
     </table>
   </div>
 
@@ -219,23 +135,22 @@
         <tr>
           <th>Tipologia</th>
           <th>Maturato / Spettante</th>
-          <th>Usufruito (Da Registro)</th>
+          <th>Usufruito (Registro)</th>
           <th>Saldo Residuo</th>
         </tr>
       </thead>
-      <tbody id="prospetto-body"></tbody>
+      <tbody id="tb-prospetto"></tbody>
     </table>
   </div>
 </div>
 
 <script>
-  // Stato iniziale
-  let registro = JSON.parse(localStorage.getItem('app_presenze_registro')) || [
+  let registro = JSON.parse(localStorage.getItem('registro_presenze')) || [
     { id: 1, dataInizio: '2026-09-01', dataFine: '2026-09-02', tipo: 'Ferie', qta: 2, note: 'Ferie estive' },
     { id: 2, dataInizio: '2026-09-10', dataFine: '2026-09-10', tipo: 'ROL', qta: 4, note: 'Permesso' }
   ];
 
-  let maturati = JSON.parse(localStorage.getItem('app_presenze_maturati')) || {
+  let maturati = JSON.parse(localStorage.getItem('maturati_presenze')) || {
     'Ferie': 20,
     'ROL': 32,
     'Ex Festività': 32,
@@ -244,7 +159,6 @@
     'Legge 104': 3
   };
 
-  // Funzione per calcolare i giorni lavorativi escludendo Sabato e Domenica
   function calcolaGiorniLavorativi(d1Str, d2Str) {
     if (!d1Str) return 0;
     let d1 = new Date(d1Str + 'T00:00:00');
@@ -262,9 +176,8 @@
     return count;
   }
 
-  // Render del registro con campi EDITABILI
   function renderRegistro() {
-    const tbody = document.getElementById('registro-body');
+    const tbody = document.getElementById('tb-registro');
     tbody.innerHTML = '';
 
     registro.forEach((item, index) => {
@@ -278,34 +191,29 @@
         <td contenteditable="true" onblur="aggiornaCampo(${index}, 'qta', this.innerText)">${item.qta || 0}</td>
         <td>${ggLav}</td>
         <td contenteditable="true" onblur="aggiornaCampo(${index}, 'note', this.innerText)">${item.note || ''}</td>
-        <td>
-          <button class="btn-danger" style="padding: 4px 8px; font-size: 0.75rem;" onclick="eliminaVoce(${index})">Elimina</button>
-        </td>
+        <td><button class="btn-danger" onclick="eliminaVoce(${index})">Elimina</button></td>
       `;
       tbody.appendChild(tr);
     });
 
-    salvaStato();
-    renderProspetto();
+    salvaDati();
+    riconcolaTutto();
   }
 
-  // Aggiornamento dinamico da edizioni inline
   function aggiornaCampo(index, campo, valore) {
     let valPulito = valore.trim();
     if (campo === 'qta') {
       valPulito = parseFloat(valPulito) || 0;
     }
     registro[index][campo] = valPulito;
-    salvaStato();
-    renderProspetto();
+    salvaDati();
+    riconcolaTutto();
   }
 
-  // Render del prospetto di riconciliazione saldi
-  function renderProspetto() {
-    const tbody = document.getElementById('prospetto-body');
+  function riconcolaTutto() {
+    const tbody = document.getElementById('tb-prospetto');
     tbody.innerHTML = '';
 
-    // Calcolo usufruito per ogni tipo
     let usufruitoMap = { 'Ferie': 0, 'ROL': 0, 'Ex Festività': 0, 'Buoni Pasto': 0, 'Malattia': 0, 'Legge 104': 0 };
 
     registro.forEach(item => {
@@ -331,10 +239,9 @@
   }
 
   function aggiornaMaturato(tipo, valore) {
-    let valPulito = parseFloat(valore.trim()) || 0;
-    maturati[tipo] = valPulito;
-    salvaStato();
-    renderProspetto();
+    maturati[tipo] = parseFloat(valore.trim()) || 0;
+    salvaDati();
+    riconcolaTutto();
   }
 
   function aggiungiVoce(e) {
@@ -346,7 +253,7 @@
     const note = document.getElementById('note').value;
 
     registro.push({ id: Date.now(), dataInizio: dInizio, dataFine: dFine, tipo, qta, note });
-    document.getElementById('presenzaForm').reset();
+    document.getElementById('formPresenze').reset();
     renderRegistro();
   }
 
@@ -355,50 +262,41 @@
     renderRegistro();
   }
 
-  function salvaStato() {
-    localStorage.setItem('app_presenze_registro', JSON.stringify(registro));
-    localStorage.setItem('app_presenze_maturati', JSON.stringify(maturati));
+  function salvaDati() {
+    localStorage.setItem('registro_presenze', JSON.stringify(registro));
+    localStorage.setItem('maturati_presenze', JSON.stringify(maturati));
   }
 
-  function toggleTheme() {
-    const body = document.body;
-    const currentTheme = body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    body.setAttribute('data-theme', newTheme);
+  function toggleTema() {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
   }
 
-  // Backup e Restore
-  function esportaDati() {
+  function esportaBackup() {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ registro, maturati }));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `presenze_backup_${new Date().toISOString().slice(0,10)}.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
+    const a = document.createElement('a');
+    a.href = dataStr;
+    a.download = `backup_presenze_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
   }
 
-  function importaDati(e) {
-    const fileReader = new FileReader();
-    fileReader.onload = function (event) {
+  function ripristinaBackup(e) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
       try {
-        const parsed = JSON.parse(event.target.result);
-        if (parsed.registro && parsed.maturati) {
-          registro = parsed.registro;
-          maturati = parsed.maturati;
+        const data = JSON.parse(event.target.result);
+        if (data.registro && data.maturati) {
+          registro = data.registro;
+          maturati = data.maturati;
           renderRegistro();
-          alert("Dati importati con successo!");
-        } else {
-          alert("File JSON non valido.");
         }
       } catch (err) {
-        alert("Errore nella lettura del file.");
+        alert("File JSON non valido.");
       }
     };
-    fileReader.readAsText(e.target.files[0]);
+    reader.readAsText(e.target.files[0]);
   }
 
-  // Inizializzazione
   renderRegistro();
 </script>
 
